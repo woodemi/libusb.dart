@@ -706,6 +706,23 @@ class Libusb {
 
   _dart_libusb_set_debug _libusb_set_debug;
 
+  void libusb_set_log_cb(
+    ffi.Pointer<libusb_context> ctx,
+    ffi.Pointer<ffi.NativeFunction<libusb_log_cb>> cb,
+    int mode,
+  ) {
+    _libusb_set_log_cb ??=
+        _dylib.lookupFunction<_c_libusb_set_log_cb, _dart_libusb_set_log_cb>(
+            'libusb_set_log_cb');
+    return _libusb_set_log_cb(
+      ctx,
+      cb,
+      mode,
+    );
+  }
+
+  _dart_libusb_set_log_cb _libusb_set_log_cb;
+
   ffi.Pointer<libusb_version> libusb_get_version() {
     _libusb_get_version ??=
         _dylib.lookupFunction<_c_libusb_get_version, _dart_libusb_get_version>(
@@ -1208,6 +1225,22 @@ class Libusb {
   }
 
   _dart_libusb_get_max_iso_packet_size _libusb_get_max_iso_packet_size;
+
+  int libusb_wrap_sys_device(
+    ffi.Pointer<libusb_context> ctx,
+    int sys_dev,
+    ffi.Pointer<ffi.Pointer<libusb_device_handle>> dev_handle,
+  ) {
+    _libusb_wrap_sys_device ??= _dylib.lookupFunction<_c_libusb_wrap_sys_device,
+        _dart_libusb_wrap_sys_device>('libusb_wrap_sys_device');
+    return _libusb_wrap_sys_device(
+      ctx,
+      sys_dev,
+      dev_handle,
+    );
+  }
+
+  _dart_libusb_wrap_sys_device _libusb_wrap_sys_device;
 
   int libusb_open(
     ffi.Pointer<libusb_device> dev,
@@ -2938,7 +2971,7 @@ class libusb_endpoint_descriptor extends ffi.Struct {
   /// it will store them here, should you wish to parse them.
   ffi.Pointer<ffi.Uint8> extra;
 
-  /// Length of the extra descriptors, in bytes.
+  /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
   int extra_length;
 }
@@ -2997,7 +3030,7 @@ class libusb_interface_descriptor extends ffi.Struct {
   /// it will store them here, should you wish to parse them.
   ffi.Pointer<ffi.Uint8> extra;
 
-  /// Length of the extra descriptors, in bytes.
+  /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
   int extra_length;
 }
@@ -3009,7 +3042,8 @@ class libusb_interface extends ffi.Struct {
   /// by the num_altsetting field.
   ffi.Pointer<libusb_interface_descriptor> altsetting;
 
-  /// The number of alternate settings that belong to this interface
+  /// The number of alternate settings that belong to this interface.
+  /// Must be non-negative.
   @ffi.Int32()
   int num_altsetting;
 }
@@ -3064,7 +3098,7 @@ class libusb_config_descriptor extends ffi.Struct {
   /// descriptors, it will store them here, should you wish to parse them.
   ffi.Pointer<ffi.Uint8> extra;
 
-  /// Length of the extra descriptors, in bytes.
+  /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
   int extra_length;
 }
@@ -3514,6 +3548,17 @@ abstract class libusb_log_level {
   static const int LIBUSB_LOG_LEVEL_WARNING = 2;
   static const int LIBUSB_LOG_LEVEL_INFO = 3;
   static const int LIBUSB_LOG_LEVEL_DEBUG = 4;
+}
+
+/// \ingroup libusb_lib
+/// Log callback mode.
+/// \see libusb_set_log_cb()
+abstract class libusb_log_cb_mode {
+  /// Callback function handling all log mesages.
+  static const int LIBUSB_LOG_CB_GLOBAL = 1;
+
+  /// Callback function handling context related log mesages.
+  static const int LIBUSB_LOG_CB_CONTEXT = 2;
 }
 
 /// \ingroup libusb_poll
@@ -4129,9 +4174,9 @@ const int CHAR_MAX = 127;
 
 const int ZERO_SIZED_ARRAY = 0;
 
-const int LIBUSB_API_VERSION = 16777478;
+const int LIBUSB_API_VERSION = 16777479;
 
-const int LIBUSBX_API_VERSION = 16777478;
+const int LIBUSBX_API_VERSION = 16777479;
 
 const int LIBUSB_DT_DEVICE_SIZE = 18;
 
@@ -4669,6 +4714,24 @@ typedef _dart_libusb_set_debug = void Function(
   int level,
 );
 
+typedef libusb_log_cb = ffi.Void Function(
+  ffi.Pointer<libusb_context>,
+  ffi.Int32,
+  ffi.Pointer<ffi.Int8>,
+);
+
+typedef _c_libusb_set_log_cb = ffi.Void Function(
+  ffi.Pointer<libusb_context> ctx,
+  ffi.Pointer<ffi.NativeFunction<libusb_log_cb>> cb,
+  ffi.Int32 mode,
+);
+
+typedef _dart_libusb_set_log_cb = void Function(
+  ffi.Pointer<libusb_context> ctx,
+  ffi.Pointer<ffi.NativeFunction<libusb_log_cb>> cb,
+  int mode,
+);
+
 typedef _c_libusb_get_version = ffi.Pointer<libusb_version> Function();
 
 typedef _dart_libusb_get_version = ffi.Pointer<libusb_version> Function();
@@ -4989,6 +5052,18 @@ typedef _c_libusb_get_max_iso_packet_size = ffi.Int32 Function(
 typedef _dart_libusb_get_max_iso_packet_size = int Function(
   ffi.Pointer<libusb_device> dev,
   int endpoint,
+);
+
+typedef _c_libusb_wrap_sys_device = ffi.Int32 Function(
+  ffi.Pointer<libusb_context> ctx,
+  ffi.IntPtr sys_dev,
+  ffi.Pointer<ffi.Pointer<libusb_device_handle>> dev_handle,
+);
+
+typedef _dart_libusb_wrap_sys_device = int Function(
+  ffi.Pointer<libusb_context> ctx,
+  int sys_dev,
+  ffi.Pointer<ffi.Pointer<libusb_device_handle>> dev_handle,
 );
 
 typedef _c_libusb_open = ffi.Int32 Function(
