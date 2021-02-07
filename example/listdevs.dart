@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart' as ffi;
 import 'package:convert/convert.dart';
-import 'package:libusb/libusb.dart';
+
+// git update-index --assume-unchanged example/listdevs.dart
+// import 'package:libusb/libusb_macos.dart';
+// import 'package:libusb/libusb_linux.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isLinux) {
