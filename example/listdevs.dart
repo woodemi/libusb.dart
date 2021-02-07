@@ -5,14 +5,17 @@ import 'package:ffi/ffi.dart' as ffi;
 import 'package:convert/convert.dart';
 
 // git update-index --assume-unchanged example/listdevs.dart
+// import 'package:libusb/libusb_windows.dart';
 // import 'package:libusb/libusb_macos.dart';
 // import 'package:libusb/libusb_linux.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
-  if (Platform.isLinux) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.so');
-  } else if (Platform.isMacOS) {
+  if (Platform.isWindows) {
+    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
+  } if (Platform.isMacOS) {
     return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
+  } else if (Platform.isLinux) {
+    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.so');
   }
   return null;
 };
