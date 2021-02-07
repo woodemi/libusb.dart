@@ -2399,6 +2399,21 @@ class Libusb {
   }
 
   _dart_libusb_hotplug_deregister_callback _libusb_hotplug_deregister_callback;
+
+  int libusb_set_option(
+    ffi.Pointer<libusb_context> ctx,
+    int option,
+  ) {
+    _libusb_set_option ??=
+        _dylib.lookupFunction<_c_libusb_set_option, _dart_libusb_set_option>(
+            'libusb_set_option');
+    return _libusb_set_option(
+      ctx,
+      option,
+    );
+  }
+
+  _dart_libusb_set_option _libusb_set_option;
 }
 
 class __darwin_pthread_handler_rec extends ffi.Struct {
@@ -3233,6 +3248,9 @@ abstract class libusb_speed {
 
   /// The device is operating at super speed (5000MBit/s).
   static const int LIBUSB_SPEED_SUPER = 4;
+
+  /// The device is operating at super speed plus (10000MBit/s).
+  static const int LIBUSB_SPEED_SUPER_PLUS = 5;
 }
 
 /// \ingroup libusb_dev
@@ -3456,10 +3474,8 @@ abstract class libusb_capability {
 /// - LIBUSB_LOG_LEVEL_NONE (0)    : no messages ever printed by the library (default)
 /// - LIBUSB_LOG_LEVEL_ERROR (1)   : error messages are printed to stderr
 /// - LIBUSB_LOG_LEVEL_WARNING (2) : warning and error messages are printed to stderr
-/// - LIBUSB_LOG_LEVEL_INFO (3)    : informational messages are printed to stdout, warning
-/// and error messages are printed to stderr
-/// - LIBUSB_LOG_LEVEL_DEBUG (4)   : debug and informational messages are printed to stdout,
-/// warnings and errors to stderr
+/// - LIBUSB_LOG_LEVEL_INFO (3)    : informational messages are printed to stderr
+/// - LIBUSB_LOG_LEVEL_DEBUG (4)   : debug and informational messages are printed to stderr
 abstract class libusb_log_level {
   static const int LIBUSB_LOG_LEVEL_NONE = 0;
   static const int LIBUSB_LOG_LEVEL_ERROR = 1;
@@ -3509,6 +3525,40 @@ abstract class libusb_hotplug_event {
   /// It is the user's responsibility to call libusb_close on any handle associated with a disconnected device.
   /// It is safe to call libusb_get_device_descriptor on a device that has left
   static const int LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT = 2;
+}
+
+/// \ingroup libusb_lib
+/// Available option values for libusb_set_option().
+abstract class libusb_option {
+  /// Set the log message verbosity.
+  ///
+  /// The default level is LIBUSB_LOG_LEVEL_NONE, which means no messages are ever
+  /// printed. If you choose to increase the message verbosity level, ensure
+  /// that your application does not close the stderr file descriptor.
+  ///
+  /// You are advised to use level LIBUSB_LOG_LEVEL_WARNING. libusb is conservative
+  /// with its message logging and most of the time, will only log messages that
+  /// explain error conditions and other oddities. This will help you debug
+  /// your software.
+  ///
+  /// If the LIBUSB_DEBUG environment variable was set when libusb was
+  /// initialized, this function does nothing: the message verbosity is fixed
+  /// to the value in the environment variable.
+  ///
+  /// If libusb was compiled without any message logging, this function does
+  /// nothing: you'll never get any messages.
+  ///
+  /// If libusb was compiled with verbose debug message logging, this function
+  /// does nothing: you'll always get messages from all levels.
+  static const int LIBUSB_OPTION_LOG_LEVEL = 0;
+
+  /// Use the UsbDk backend for a specific context, if available.
+  ///
+  /// This option should be set immediately after calling libusb_init(), otherwise
+  /// unspecified behavior may occur.
+  ///
+  /// Only valid on Windows.
+  static const int LIBUSB_OPTION_USE_USBDK = 1;
 }
 
 const int __WORDSIZE = 64;
@@ -4223,9 +4273,11 @@ const int _XOPEN_NAME_MAX = 255;
 
 const int _XOPEN_PATH_MAX = 1024;
 
-const int LIBUSB_API_VERSION = 16777477;
+const int ZERO_SIZED_ARRAY = 0;
 
-const int LIBUSBX_API_VERSION = 16777477;
+const int LIBUSB_API_VERSION = 16777478;
+
+const int LIBUSBX_API_VERSION = 16777478;
 
 const int LIBUSB_DT_DEVICE_SIZE = 18;
 
@@ -5782,6 +5834,16 @@ typedef _c_libusb_hotplug_deregister_callback = ffi.Void Function(
 typedef _dart_libusb_hotplug_deregister_callback = void Function(
   ffi.Pointer<libusb_context> ctx,
   int callback_handle,
+);
+
+typedef _c_libusb_set_option = ffi.Int32 Function(
+  ffi.Pointer<libusb_context> ctx,
+  ffi.Int32 option,
+);
+
+typedef _dart_libusb_set_option = int Function(
+  ffi.Pointer<libusb_context> ctx,
+  int option,
 );
 
 typedef _typedefC_1 = ffi.Void Function(
