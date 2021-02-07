@@ -1,3 +1,3 @@
-## 1.0.0
+## 0.1.23
 
-- Initial version, created by Stagehand
+- Wrap libusb-1.0.23 for macOS/Linux

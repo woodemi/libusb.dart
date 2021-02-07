@@ -7,6 +7,16 @@ Dart wrapper via `dart:ffi` for https://github.com/libusb/libusb
 - macOS
 - Linux(Ubuntu 18.04 LTS)
 
+## Usage
+
+Checkout example
+
+## Features and bugs
+
+Please file feature requests and bugs at the [issue tracker][tracker].
+
+[tracker]: http://example.com/issues/replaceme
+
 ## Build
 
 ### Prepare llvm(9+)
@@ -41,7 +51,7 @@ Download `xxx` verion from `https://github.com/libusb/libusb/releases` and extra
 
 - macOS:
 
-Download `xxx` version from https://homebrew.bintray.com/bottles/libusb-1.0.21.high_sierra.bottle.tar.gz and extract
+Download `xxx` version from https://homebrew.bintray.com/bottles/libusb-1.0.23.catalina.bottle.tar.gz and extract
 
 ```
 cp libusb/1.0.21/lib/libusb-1.0.dylib libusb-1.0/
