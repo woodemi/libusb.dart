@@ -4,15 +4,24 @@ Dart wrapper via `dart:ffi` for https://github.com/libusb/libusb
 
 ## Environment
 
+- macOS
 - Linux(Ubuntu 18.04 LTS)
 
 ## Build
 
 ### Prepare llvm(9+)
 
+- macOS: `brew install llvm`
 - Linux: `sudo apt install libclang-10-dev`
 
 ### Build libusb_xxx.dart
+
+- macOS:
+
+```
+pub run ffigen
+mv lib/libusb.dart lib/libusb_macos.dart
+```
 
 - Linux:
 
@@ -30,6 +39,13 @@ Download `xxx` verion from `https://github.com/libusb/libusb/releases` and extra
 
 ### Prepare libusb-1.0 dynamic library
 
+- macOS:
+
+Download `xxx` version from https://homebrew.bintray.com/bottles/libusb-1.0.21.high_sierra.bottle.tar.gz and extract
+
+```
+cp libusb/1.0.21/lib/libusb-1.0.dylib libusb-1.0/
+```
 
 - Linux:
 
