@@ -4,6 +4,7 @@ Dart wrapper via `dart:ffi` for https://github.com/libusb/libusb
 
 ## Environment
 
+- Windows(10)
 - macOS
 - Linux(Ubuntu 18.04 LTS)
 
@@ -21,10 +22,18 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 ### Prepare llvm(9+)
 
+- Windows: `winget install -e --id LLVM.LLVM`
 - macOS: `brew install llvm`
 - Linux: `sudo apt install libclang-10-dev`
 
 ### Build libusb_xxx.dart
+
+- Windows:
+
+```
+pub run ffigen
+move lib/libusb.dart lib/libusb_windows.dart
+```
 
 - macOS:
 
@@ -48,6 +57,14 @@ mv lib/libusb.dart lib/libusb_linux.dart
 Download `xxx` verion from `https://github.com/libusb/libusb/releases` and extract `libusb.h`
 
 ### Prepare libusb-1.0 dynamic library
+
+- Windows:
+
+Download `xxx` version from https://github.com/libusb/libusb/releases and extract
+
+```
+copy libusb-1.0.23\MS64\dll\libusb-1.0.dll libusb-1.0\
+```
 
 - macOS:
 
