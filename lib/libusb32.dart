@@ -1622,7 +1622,7 @@ class Libusb {
 
   int libusb_wait_for_event(
     ffi.Pointer<libusb_context> ctx,
-    ffi.Pointer<timeval> tv,
+    ffi.Pointer<timeval32> tv,
   ) {
     _libusb_wait_for_event ??= _dylib.lookupFunction<_c_libusb_wait_for_event,
         _dart_libusb_wait_for_event>('libusb_wait_for_event');
@@ -1636,7 +1636,7 @@ class Libusb {
 
   int libusb_handle_events_timeout(
     ffi.Pointer<libusb_context> ctx,
-    ffi.Pointer<timeval> tv,
+    ffi.Pointer<timeval32> tv,
   ) {
     _libusb_handle_events_timeout ??= _dylib.lookupFunction<
         _c_libusb_handle_events_timeout,
@@ -1651,7 +1651,7 @@ class Libusb {
 
   int libusb_handle_events_timeout_completed(
     ffi.Pointer<libusb_context> ctx,
-    ffi.Pointer<timeval> tv,
+    ffi.Pointer<timeval32> tv,
     ffi.Pointer<ffi.Int32> completed,
   ) {
     _libusb_handle_events_timeout_completed ??= _dylib.lookupFunction<
@@ -1697,7 +1697,7 @@ class Libusb {
 
   int libusb_handle_events_locked(
     ffi.Pointer<libusb_context> ctx,
-    ffi.Pointer<timeval> tv,
+    ffi.Pointer<timeval32> tv,
   ) {
     _libusb_handle_events_locked ??= _dylib.lookupFunction<
         _c_libusb_handle_events_locked,
@@ -1725,7 +1725,7 @@ class Libusb {
 
   int libusb_get_next_timeout(
     ffi.Pointer<libusb_context> ctx,
-    ffi.Pointer<timeval> tv,
+    ffi.Pointer<timeval32> tv,
   ) {
     _libusb_get_next_timeout ??= _dylib.lookupFunction<
         _c_libusb_get_next_timeout,
@@ -2843,11 +2843,11 @@ abstract class libusb_log_cb_mode {
   static const int LIBUSB_LOG_CB_CONTEXT = 2;
 }
 
-class timeval extends ffi.Struct {
+class timeval32 extends ffi.Struct {
   @ffi.Int64()
   int tv_sec;
 
-  @ffi.Int64()
+  @ffi.Int32()
   int tv_usec;
 }
 
@@ -3953,33 +3953,33 @@ typedef _dart_libusb_unlock_event_waiters = void Function(
 
 typedef _c_libusb_wait_for_event = ffi.Int32 Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _dart_libusb_wait_for_event = int Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _c_libusb_handle_events_timeout = ffi.Int32 Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _dart_libusb_handle_events_timeout = int Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _c_libusb_handle_events_timeout_completed = ffi.Int32 Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
   ffi.Pointer<ffi.Int32> completed,
 );
 
 typedef _dart_libusb_handle_events_timeout_completed = int Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
   ffi.Pointer<ffi.Int32> completed,
 );
 
@@ -4003,12 +4003,12 @@ typedef _dart_libusb_handle_events_completed = int Function(
 
 typedef _c_libusb_handle_events_locked = ffi.Int32 Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _dart_libusb_handle_events_locked = int Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _c_libusb_pollfds_handle_timeouts = ffi.Int32 Function(
@@ -4021,12 +4021,12 @@ typedef _dart_libusb_pollfds_handle_timeouts = int Function(
 
 typedef _c_libusb_get_next_timeout = ffi.Int32 Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _dart_libusb_get_next_timeout = int Function(
   ffi.Pointer<libusb_context> ctx,
-  ffi.Pointer<timeval> tv,
+  ffi.Pointer<timeval32> tv,
 );
 
 typedef _c_libusb_get_pollfds = ffi.Pointer<ffi.Pointer<libusb_pollfd>>

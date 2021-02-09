@@ -3,11 +3,7 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart' as ffi;
 import 'package:convert/convert.dart';
-
-// git update-index --assume-unchanged example/listdevs.dart
-// import 'package:libusb/libusb_windows.dart';
-// import 'package:libusb/libusb_macos.dart';
-// import 'package:libusb/libusb_linux.dart';
+import 'package:libusb/libusb64.dart'; // if (Platform.isMacOS) 'package:libusb/libusb32.dart
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
