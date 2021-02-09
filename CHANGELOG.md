@@ -1,3 +1,7 @@
+## 0.2.23
+
+- **BREAKING CHANGE**: Refactor `libusb_xxx.dart` to `libusb32.dart` & `libusb64.dart`
+
 ## 0.1.23+3
 
 - Optimize generated dart
