@@ -1,12 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:libusb/libusb64.dart'; // if (Platform.isMacOS) 'package:libusb/libusb32.dart
 import 'package:test/test.dart';
-
-// git update-index --assume-unchanged example/listdevs.dart
-// import 'package:libusb/libusb_windows.dart';
-// import 'package:libusb/libusb_macos.dart';
-// import 'package:libusb/libusb_linux.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
