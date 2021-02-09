@@ -1,3 +1,7 @@
+## 0.1.23+3
+
+- Optimize generated dart
+
 ## 0.1.23+2
 
 - Add `@Deprecated('inline')` for unavailable inline C functions
