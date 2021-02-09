@@ -71,7 +71,7 @@ copy libusb-1.0.23\MS64\dll\libusb-1.0.dll libusb-1.0\
 Download `xxx` version from https://homebrew.bintray.com/bottles/libusb-1.0.23.catalina.bottle.tar.gz and extract
 
 ```
-cp libusb/1.0.21/lib/libusb-1.0.dylib libusb-1.0/
+cp libusb/1.0.23/lib/libusb-1.0.dylib libusb-1.0/
 ```
 
 - Linux:

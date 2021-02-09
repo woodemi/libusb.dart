@@ -1,3 +1,7 @@
+## 0.1.23+2
+
+- Add `@Deprecated('inline')` for unavailable inline C functions
+
 ## 0.1.23+1
 
 - Add support for Windows

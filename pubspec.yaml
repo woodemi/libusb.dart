@@ -1,6 +1,6 @@
 name: libusb
 description: Dart wrapper via `dart:ffi` for https://github.com/libusb/libusb
-version: 0.1.23+1
+version: 0.1.23+2
 homepage: https://github.com/woodemi/libusb.dart
 
 environment:
