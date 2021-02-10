@@ -58,9 +58,9 @@ void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
     var addr = libusb.libusb_get_device_address(dev).toRadixString(16);
     print('$idVendor:$idProduct (bus $bus, device $addr)');
 
-    result = libusb.libusb_get_port_numbers(dev, path, 8);
-    if (result > 0) {
-      var hexList = path.asTypedList(8).map((e) => hex.encode([e]));
+    var portCount = libusb.libusb_get_port_numbers(dev, path, 8);
+    if (portCount > 0) {
+      var hexList = path.asTypedList(portCount).map((e) => hex.encode([e]));
       print(' path: ${hexList.join('.')}');
     }
   }
