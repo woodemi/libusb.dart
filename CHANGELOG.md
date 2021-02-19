@@ -1,3 +1,7 @@
+## 0.2.23+1
+
+- Fix example typo & README
+
 ## 0.2.23
 
 - **BREAKING CHANGE**: Refactor `libusb_xxx.dart` to `libusb32.dart` & `libusb64.dart`
