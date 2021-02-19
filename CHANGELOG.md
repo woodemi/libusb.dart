@@ -1,3 +1,7 @@
+## 0.3.23-nullsafety.0
+
+- Migerate to `Null safety`
+
 ## 0.2.23+1
 
 - Fix example typo & README
