@@ -1,19 +1,23 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:ffi/ffi.dart' as ffi;
+import 'package:ffi/ffi.dart' show calloc;
 import 'package:convert/convert.dart';
 import 'package:libusb/libusb64.dart'; // if (Platform.isMacOS) 'package:libusb/libusb32.dart
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
-  } if (Platform.isMacOS) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
-  } else if (Platform.isLinux) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.so');
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
   }
-  return null;
+  if (Platform.isMacOS) {
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
+  } else if (Platform.isLinux) {
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.so');
+  }
+  throw 'libusb dynamic library not found';
 };
 
 final libusb = Libusb(loadLibrary());
@@ -24,9 +28,9 @@ void main(List<String> arguments) {
     return;
   }
 
-  var deviceListPtr = ffi.allocate<Pointer<Pointer<libusb_device>>>();
+  var deviceListPtr = calloc<Pointer<Pointer<libusb_device>>>();
   listdevs(deviceListPtr);
-  ffi.free(deviceListPtr);
+  calloc.free(deviceListPtr);
 
   libusb.libusb_exit(nullptr);
 }
@@ -43,8 +47,8 @@ void listdevs(Pointer<Pointer<Pointer<libusb_device>>> deviceListPtr) {
 }
 
 void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
-  var descPtr = ffi.allocate<libusb_device_descriptor>();
-  var path = ffi.allocate<Uint8>(count: 8);
+  var descPtr = calloc<libusb_device_descriptor>();
+  var path = calloc<Uint8>(8);
 
   for (var i = 0; deviceList[i] != nullptr; i++) {
     var dev = deviceList[i];
@@ -65,6 +69,6 @@ void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
     }
   }
 
-  ffi.free(descPtr);
-  ffi.free(path);
+  calloc.free(descPtr);
+  calloc.free(path);
 }

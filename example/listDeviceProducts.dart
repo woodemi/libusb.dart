@@ -2,18 +2,22 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:ffi/ffi.dart' as ffi;
+import 'package:ffi/ffi.dart' show calloc;
 import 'package:libusb/libusb64.dart'; // if (Platform.isMacOS) 'package:libusb/libusb32.dart
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
-  } if (Platform.isMacOS) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
-  } else if (Platform.isLinux) {
-    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.so');
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
   }
-  return null;
+  if (Platform.isMacOS) {
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
+  } else if (Platform.isLinux) {
+    return DynamicLibrary.open(
+        '${Directory.current.path}/libusb-1.0/libusb-1.0.so');
+  }
+  throw 'libusb dynamic library not found';
 };
 
 final _libusb = Libusb(loadLibrary());
@@ -30,7 +34,7 @@ class QuickUsb {
       throw StateError('init error: ${_libusb.describeError(init)}');
     }
 
-    var deviceListPtr = ffi.allocate<Pointer<Pointer<libusb_device>>>();
+    var deviceListPtr = calloc<Pointer<Pointer<libusb_device>>>();
     try {
       var count = _libusb.libusb_get_device_list(nullptr, deviceListPtr);
       if (count < 0) {
@@ -42,17 +46,17 @@ class QuickUsb {
         _libusb.libusb_free_device_list(deviceListPtr.value, 1);
       }
     } finally {
-      ffi.free(deviceListPtr);
+      calloc.free(deviceListPtr);
       _libusb.libusb_exit(nullptr);
     }
   }
 
   Iterable<MapEntry<String, String>> _iterateDeviceProduct(
       Pointer<Pointer<libusb_device>> deviceList) sync* {
-    var descPtr = ffi.allocate<libusb_device_descriptor>();
-    var devHandlePtr = ffi.allocate<Pointer<libusb_device_handle>>();
+    var descPtr = calloc<libusb_device_descriptor>();
+    var devHandlePtr = calloc<Pointer<libusb_device_handle>>();
     final strDescLength = 42;
-    var strDescPtr = ffi.allocate<Uint8>(count: strDescLength);
+    var strDescPtr = calloc<Uint8>(strDescLength);
 
     for (var i = 0; deviceList[i] != nullptr; i++) {
       var deviceProduct = _getDeviceProduct(
@@ -60,17 +64,18 @@ class QuickUsb {
       if (deviceProduct != null) yield deviceProduct;
     }
 
-    ffi.free(descPtr);
-    ffi.free(devHandlePtr);
-    ffi.free(strDescPtr);
+    calloc.free(descPtr);
+    calloc.free(devHandlePtr);
+    calloc.free(strDescPtr);
   }
 
-  MapEntry<String, String> _getDeviceProduct(
-      Pointer<libusb_device> dev,
-      Pointer<libusb_device_descriptor> descPtr,
-      Pointer<Pointer<libusb_device_handle>> devHandlePtr,
-      Pointer<Uint8> strDescPtr,
-      int strDescLength) {
+  MapEntry<String, String>? _getDeviceProduct(
+    Pointer<libusb_device> dev,
+    Pointer<libusb_device_descriptor> descPtr,
+    Pointer<Pointer<libusb_device_handle>> devHandlePtr,
+    Pointer<Uint8> strDescPtr,
+    int strDescLength,
+  ) {
     var devDesc = _libusb.libusb_get_device_descriptor(dev, descPtr);
     if (devDesc != libusb_error.LIBUSB_SUCCESS) {
       print('devDesc error: ${_libusb.describeError(devDesc)}');
@@ -144,7 +149,7 @@ extension LibusbInline on Libusb {
       langid,
       data,
       length,
-      1000
+      1000,
     );
   }
 }

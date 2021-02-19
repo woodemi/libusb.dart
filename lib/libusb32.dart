@@ -11,241 +11,208 @@ class Libusb {
   /// The symbols are looked up in [dynamicLibrary].
   Libusb(ffi.DynamicLibrary dynamicLibrary) : _dylib = dynamicLibrary;
 
-  /// \ingroup libusb_misc
-  /// Convert a 16-bit value from host-endian to little-endian format. On
-  /// little endian systems, this function does nothing. On big endian systems,
-  /// the bytes are swapped.
-  /// \param x the host-endian value to convert
-  /// \returns the value in little-endian byte order
-  @Deprecated('inline')
-  int libusb_cpu_to_le16(
-    int x,
-  ) {
-    _libusb_cpu_to_le16 ??=
-        _dylib.lookupFunction<_c_libusb_cpu_to_le16, _dart_libusb_cpu_to_le16>(
-            'libusb_cpu_to_le16');
-    return _libusb_cpu_to_le16(
-      x,
-    );
-  }
-
-  _dart_libusb_cpu_to_le16 _libusb_cpu_to_le16;
-
   int libusb_init(
     ffi.Pointer<ffi.Pointer<libusb_context>> ctx,
   ) {
-    _libusb_init ??=
-        _dylib.lookupFunction<_c_libusb_init, _dart_libusb_init>('libusb_init');
-    return _libusb_init(
+    return (_libusb_init ??= _dylib
+        .lookupFunction<_c_libusb_init, _dart_libusb_init>('libusb_init'))(
       ctx,
     );
   }
 
-  _dart_libusb_init _libusb_init;
+  _dart_libusb_init? _libusb_init;
 
   void libusb_exit(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_exit ??=
-        _dylib.lookupFunction<_c_libusb_exit, _dart_libusb_exit>('libusb_exit');
-    return _libusb_exit(
+    return (_libusb_exit ??= _dylib
+        .lookupFunction<_c_libusb_exit, _dart_libusb_exit>('libusb_exit'))(
       ctx,
     );
   }
 
-  _dart_libusb_exit _libusb_exit;
+  _dart_libusb_exit? _libusb_exit;
 
   void libusb_set_debug(
     ffi.Pointer<libusb_context> ctx,
     int level,
   ) {
-    _libusb_set_debug ??=
+    return (_libusb_set_debug ??=
         _dylib.lookupFunction<_c_libusb_set_debug, _dart_libusb_set_debug>(
-            'libusb_set_debug');
-    return _libusb_set_debug(
+            'libusb_set_debug'))(
       ctx,
       level,
     );
   }
 
-  _dart_libusb_set_debug _libusb_set_debug;
+  _dart_libusb_set_debug? _libusb_set_debug;
 
   void libusb_set_log_cb(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<ffi.NativeFunction<libusb_log_cb>> cb,
     int mode,
   ) {
-    _libusb_set_log_cb ??=
+    return (_libusb_set_log_cb ??=
         _dylib.lookupFunction<_c_libusb_set_log_cb, _dart_libusb_set_log_cb>(
-            'libusb_set_log_cb');
-    return _libusb_set_log_cb(
+            'libusb_set_log_cb'))(
       ctx,
       cb,
       mode,
     );
   }
 
-  _dart_libusb_set_log_cb _libusb_set_log_cb;
+  _dart_libusb_set_log_cb? _libusb_set_log_cb;
 
   ffi.Pointer<libusb_version> libusb_get_version() {
-    _libusb_get_version ??=
+    return (_libusb_get_version ??=
         _dylib.lookupFunction<_c_libusb_get_version, _dart_libusb_get_version>(
-            'libusb_get_version');
-    return _libusb_get_version();
+            'libusb_get_version'))();
   }
 
-  _dart_libusb_get_version _libusb_get_version;
+  _dart_libusb_get_version? _libusb_get_version;
 
   int libusb_has_capability(
     int capability,
   ) {
-    _libusb_has_capability ??= _dylib.lookupFunction<_c_libusb_has_capability,
-        _dart_libusb_has_capability>('libusb_has_capability');
-    return _libusb_has_capability(
+    return (_libusb_has_capability ??= _dylib.lookupFunction<
+        _c_libusb_has_capability,
+        _dart_libusb_has_capability>('libusb_has_capability'))(
       capability,
     );
   }
 
-  _dart_libusb_has_capability _libusb_has_capability;
+  _dart_libusb_has_capability? _libusb_has_capability;
 
   ffi.Pointer<ffi.Int8> libusb_error_name(
     int errcode,
   ) {
-    _libusb_error_name ??=
+    return (_libusb_error_name ??=
         _dylib.lookupFunction<_c_libusb_error_name, _dart_libusb_error_name>(
-            'libusb_error_name');
-    return _libusb_error_name(
+            'libusb_error_name'))(
       errcode,
     );
   }
 
-  _dart_libusb_error_name _libusb_error_name;
+  _dart_libusb_error_name? _libusb_error_name;
 
   int libusb_setlocale(
     ffi.Pointer<ffi.Int8> locale,
   ) {
-    _libusb_setlocale ??=
+    return (_libusb_setlocale ??=
         _dylib.lookupFunction<_c_libusb_setlocale, _dart_libusb_setlocale>(
-            'libusb_setlocale');
-    return _libusb_setlocale(
+            'libusb_setlocale'))(
       locale,
     );
   }
 
-  _dart_libusb_setlocale _libusb_setlocale;
+  _dart_libusb_setlocale? _libusb_setlocale;
 
   ffi.Pointer<ffi.Int8> libusb_strerror(
     int errcode,
   ) {
-    _libusb_strerror ??=
+    return (_libusb_strerror ??=
         _dylib.lookupFunction<_c_libusb_strerror, _dart_libusb_strerror>(
-            'libusb_strerror');
-    return _libusb_strerror(
+            'libusb_strerror'))(
       errcode,
     );
   }
 
-  _dart_libusb_strerror _libusb_strerror;
+  _dart_libusb_strerror? _libusb_strerror;
 
   int libusb_get_device_list(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<ffi.Pointer<ffi.Pointer<libusb_device>>> list,
   ) {
-    _libusb_get_device_list ??= _dylib.lookupFunction<_c_libusb_get_device_list,
-        _dart_libusb_get_device_list>('libusb_get_device_list');
-    return _libusb_get_device_list(
+    return (_libusb_get_device_list ??= _dylib.lookupFunction<
+        _c_libusb_get_device_list,
+        _dart_libusb_get_device_list>('libusb_get_device_list'))(
       ctx,
       list,
     );
   }
 
-  _dart_libusb_get_device_list _libusb_get_device_list;
+  _dart_libusb_get_device_list? _libusb_get_device_list;
 
   void libusb_free_device_list(
     ffi.Pointer<ffi.Pointer<libusb_device>> list,
     int unref_devices,
   ) {
-    _libusb_free_device_list ??= _dylib.lookupFunction<
+    return (_libusb_free_device_list ??= _dylib.lookupFunction<
         _c_libusb_free_device_list,
-        _dart_libusb_free_device_list>('libusb_free_device_list');
-    return _libusb_free_device_list(
+        _dart_libusb_free_device_list>('libusb_free_device_list'))(
       list,
       unref_devices,
     );
   }
 
-  _dart_libusb_free_device_list _libusb_free_device_list;
+  _dart_libusb_free_device_list? _libusb_free_device_list;
 
   ffi.Pointer<libusb_device> libusb_ref_device(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_ref_device ??=
+    return (_libusb_ref_device ??=
         _dylib.lookupFunction<_c_libusb_ref_device, _dart_libusb_ref_device>(
-            'libusb_ref_device');
-    return _libusb_ref_device(
+            'libusb_ref_device'))(
       dev,
     );
   }
 
-  _dart_libusb_ref_device _libusb_ref_device;
+  _dart_libusb_ref_device? _libusb_ref_device;
 
   void libusb_unref_device(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_unref_device ??= _dylib.lookupFunction<_c_libusb_unref_device,
-        _dart_libusb_unref_device>('libusb_unref_device');
-    return _libusb_unref_device(
+    return (_libusb_unref_device ??= _dylib.lookupFunction<
+        _c_libusb_unref_device,
+        _dart_libusb_unref_device>('libusb_unref_device'))(
       dev,
     );
   }
 
-  _dart_libusb_unref_device _libusb_unref_device;
+  _dart_libusb_unref_device? _libusb_unref_device;
 
   int libusb_get_configuration(
     ffi.Pointer<libusb_device_handle> dev,
     ffi.Pointer<ffi.Int32> config,
   ) {
-    _libusb_get_configuration ??= _dylib.lookupFunction<
+    return (_libusb_get_configuration ??= _dylib.lookupFunction<
         _c_libusb_get_configuration,
-        _dart_libusb_get_configuration>('libusb_get_configuration');
-    return _libusb_get_configuration(
+        _dart_libusb_get_configuration>('libusb_get_configuration'))(
       dev,
       config,
     );
   }
 
-  _dart_libusb_get_configuration _libusb_get_configuration;
+  _dart_libusb_get_configuration? _libusb_get_configuration;
 
   int libusb_get_device_descriptor(
     ffi.Pointer<libusb_device> dev,
     ffi.Pointer<libusb_device_descriptor> desc,
   ) {
-    _libusb_get_device_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_device_descriptor ??= _dylib.lookupFunction<
         _c_libusb_get_device_descriptor,
-        _dart_libusb_get_device_descriptor>('libusb_get_device_descriptor');
-    return _libusb_get_device_descriptor(
+        _dart_libusb_get_device_descriptor>('libusb_get_device_descriptor'))(
       dev,
       desc,
     );
   }
 
-  _dart_libusb_get_device_descriptor _libusb_get_device_descriptor;
+  _dart_libusb_get_device_descriptor? _libusb_get_device_descriptor;
 
   int libusb_get_active_config_descriptor(
     ffi.Pointer<libusb_device> dev,
     ffi.Pointer<ffi.Pointer<libusb_config_descriptor>> config,
   ) {
-    _libusb_get_active_config_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_active_config_descriptor ??= _dylib.lookupFunction<
             _c_libusb_get_active_config_descriptor,
             _dart_libusb_get_active_config_descriptor>(
-        'libusb_get_active_config_descriptor');
-    return _libusb_get_active_config_descriptor(
+        'libusb_get_active_config_descriptor'))(
       dev,
       config,
     );
   }
 
-  _dart_libusb_get_active_config_descriptor
+  _dart_libusb_get_active_config_descriptor?
       _libusb_get_active_config_descriptor;
 
   int libusb_get_config_descriptor(
@@ -253,111 +220,104 @@ class Libusb {
     int config_index,
     ffi.Pointer<ffi.Pointer<libusb_config_descriptor>> config,
   ) {
-    _libusb_get_config_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_config_descriptor ??= _dylib.lookupFunction<
         _c_libusb_get_config_descriptor,
-        _dart_libusb_get_config_descriptor>('libusb_get_config_descriptor');
-    return _libusb_get_config_descriptor(
+        _dart_libusb_get_config_descriptor>('libusb_get_config_descriptor'))(
       dev,
       config_index,
       config,
     );
   }
 
-  _dart_libusb_get_config_descriptor _libusb_get_config_descriptor;
+  _dart_libusb_get_config_descriptor? _libusb_get_config_descriptor;
 
   int libusb_get_config_descriptor_by_value(
     ffi.Pointer<libusb_device> dev,
     int bConfigurationValue,
     ffi.Pointer<ffi.Pointer<libusb_config_descriptor>> config,
   ) {
-    _libusb_get_config_descriptor_by_value ??= _dylib.lookupFunction<
+    return (_libusb_get_config_descriptor_by_value ??= _dylib.lookupFunction<
             _c_libusb_get_config_descriptor_by_value,
             _dart_libusb_get_config_descriptor_by_value>(
-        'libusb_get_config_descriptor_by_value');
-    return _libusb_get_config_descriptor_by_value(
+        'libusb_get_config_descriptor_by_value'))(
       dev,
       bConfigurationValue,
       config,
     );
   }
 
-  _dart_libusb_get_config_descriptor_by_value
+  _dart_libusb_get_config_descriptor_by_value?
       _libusb_get_config_descriptor_by_value;
 
   void libusb_free_config_descriptor(
     ffi.Pointer<libusb_config_descriptor> config,
   ) {
-    _libusb_free_config_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_free_config_descriptor ??= _dylib.lookupFunction<
         _c_libusb_free_config_descriptor,
-        _dart_libusb_free_config_descriptor>('libusb_free_config_descriptor');
-    return _libusb_free_config_descriptor(
+        _dart_libusb_free_config_descriptor>('libusb_free_config_descriptor'))(
       config,
     );
   }
 
-  _dart_libusb_free_config_descriptor _libusb_free_config_descriptor;
+  _dart_libusb_free_config_descriptor? _libusb_free_config_descriptor;
 
   int libusb_get_ss_endpoint_companion_descriptor(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<libusb_endpoint_descriptor> endpoint,
     ffi.Pointer<ffi.Pointer<libusb_ss_endpoint_companion_descriptor>> ep_comp,
   ) {
-    _libusb_get_ss_endpoint_companion_descriptor ??= _dylib.lookupFunction<
-            _c_libusb_get_ss_endpoint_companion_descriptor,
-            _dart_libusb_get_ss_endpoint_companion_descriptor>(
-        'libusb_get_ss_endpoint_companion_descriptor');
-    return _libusb_get_ss_endpoint_companion_descriptor(
+    return (_libusb_get_ss_endpoint_companion_descriptor ??=
+        _dylib.lookupFunction<_c_libusb_get_ss_endpoint_companion_descriptor,
+                _dart_libusb_get_ss_endpoint_companion_descriptor>(
+            'libusb_get_ss_endpoint_companion_descriptor'))(
       ctx,
       endpoint,
       ep_comp,
     );
   }
 
-  _dart_libusb_get_ss_endpoint_companion_descriptor
+  _dart_libusb_get_ss_endpoint_companion_descriptor?
       _libusb_get_ss_endpoint_companion_descriptor;
 
   void libusb_free_ss_endpoint_companion_descriptor(
     ffi.Pointer<libusb_ss_endpoint_companion_descriptor> ep_comp,
   ) {
-    _libusb_free_ss_endpoint_companion_descriptor ??= _dylib.lookupFunction<
-            _c_libusb_free_ss_endpoint_companion_descriptor,
-            _dart_libusb_free_ss_endpoint_companion_descriptor>(
-        'libusb_free_ss_endpoint_companion_descriptor');
-    return _libusb_free_ss_endpoint_companion_descriptor(
+    return (_libusb_free_ss_endpoint_companion_descriptor ??=
+        _dylib.lookupFunction<_c_libusb_free_ss_endpoint_companion_descriptor,
+                _dart_libusb_free_ss_endpoint_companion_descriptor>(
+            'libusb_free_ss_endpoint_companion_descriptor'))(
       ep_comp,
     );
   }
 
-  _dart_libusb_free_ss_endpoint_companion_descriptor
+  _dart_libusb_free_ss_endpoint_companion_descriptor?
       _libusb_free_ss_endpoint_companion_descriptor;
 
   int libusb_get_bos_descriptor(
     ffi.Pointer<libusb_device_handle> dev_handle,
     ffi.Pointer<ffi.Pointer<libusb_bos_descriptor>> bos,
   ) {
-    _libusb_get_bos_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_bos_descriptor ??= _dylib.lookupFunction<
         _c_libusb_get_bos_descriptor,
-        _dart_libusb_get_bos_descriptor>('libusb_get_bos_descriptor');
-    return _libusb_get_bos_descriptor(
+        _dart_libusb_get_bos_descriptor>('libusb_get_bos_descriptor'))(
       dev_handle,
       bos,
     );
   }
 
-  _dart_libusb_get_bos_descriptor _libusb_get_bos_descriptor;
+  _dart_libusb_get_bos_descriptor? _libusb_get_bos_descriptor;
 
   void libusb_free_bos_descriptor(
     ffi.Pointer<libusb_bos_descriptor> bos,
   ) {
-    _libusb_free_bos_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_free_bos_descriptor ??= _dylib.lookupFunction<
         _c_libusb_free_bos_descriptor,
-        _dart_libusb_free_bos_descriptor>('libusb_free_bos_descriptor');
-    return _libusb_free_bos_descriptor(
+        _dart_libusb_free_bos_descriptor>('libusb_free_bos_descriptor'))(
       bos,
     );
   }
 
-  _dart_libusb_free_bos_descriptor _libusb_free_bos_descriptor;
+  _dart_libusb_free_bos_descriptor? _libusb_free_bos_descriptor;
 
   int libusb_get_usb_2_0_extension_descriptor(
     ffi.Pointer<libusb_context> ctx,
@@ -365,33 +325,31 @@ class Libusb {
     ffi.Pointer<ffi.Pointer<libusb_usb_2_0_extension_descriptor>>
         usb_2_0_extension,
   ) {
-    _libusb_get_usb_2_0_extension_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_usb_2_0_extension_descriptor ??= _dylib.lookupFunction<
             _c_libusb_get_usb_2_0_extension_descriptor,
             _dart_libusb_get_usb_2_0_extension_descriptor>(
-        'libusb_get_usb_2_0_extension_descriptor');
-    return _libusb_get_usb_2_0_extension_descriptor(
+        'libusb_get_usb_2_0_extension_descriptor'))(
       ctx,
       dev_cap,
       usb_2_0_extension,
     );
   }
 
-  _dart_libusb_get_usb_2_0_extension_descriptor
+  _dart_libusb_get_usb_2_0_extension_descriptor?
       _libusb_get_usb_2_0_extension_descriptor;
 
   void libusb_free_usb_2_0_extension_descriptor(
     ffi.Pointer<libusb_usb_2_0_extension_descriptor> usb_2_0_extension,
   ) {
-    _libusb_free_usb_2_0_extension_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_free_usb_2_0_extension_descriptor ??= _dylib.lookupFunction<
             _c_libusb_free_usb_2_0_extension_descriptor,
             _dart_libusb_free_usb_2_0_extension_descriptor>(
-        'libusb_free_usb_2_0_extension_descriptor');
-    return _libusb_free_usb_2_0_extension_descriptor(
+        'libusb_free_usb_2_0_extension_descriptor'))(
       usb_2_0_extension,
     );
   }
 
-  _dart_libusb_free_usb_2_0_extension_descriptor
+  _dart_libusb_free_usb_2_0_extension_descriptor?
       _libusb_free_usb_2_0_extension_descriptor;
 
   int libusb_get_ss_usb_device_capability_descriptor(
@@ -400,33 +358,32 @@ class Libusb {
     ffi.Pointer<ffi.Pointer<libusb_ss_usb_device_capability_descriptor>>
         ss_usb_device_cap,
   ) {
-    _libusb_get_ss_usb_device_capability_descriptor ??= _dylib.lookupFunction<
-            _c_libusb_get_ss_usb_device_capability_descriptor,
-            _dart_libusb_get_ss_usb_device_capability_descriptor>(
-        'libusb_get_ss_usb_device_capability_descriptor');
-    return _libusb_get_ss_usb_device_capability_descriptor(
+    return (_libusb_get_ss_usb_device_capability_descriptor ??=
+        _dylib.lookupFunction<_c_libusb_get_ss_usb_device_capability_descriptor,
+                _dart_libusb_get_ss_usb_device_capability_descriptor>(
+            'libusb_get_ss_usb_device_capability_descriptor'))(
       ctx,
       dev_cap,
       ss_usb_device_cap,
     );
   }
 
-  _dart_libusb_get_ss_usb_device_capability_descriptor
+  _dart_libusb_get_ss_usb_device_capability_descriptor?
       _libusb_get_ss_usb_device_capability_descriptor;
 
   void libusb_free_ss_usb_device_capability_descriptor(
     ffi.Pointer<libusb_ss_usb_device_capability_descriptor> ss_usb_device_cap,
   ) {
-    _libusb_free_ss_usb_device_capability_descriptor ??= _dylib.lookupFunction<
-            _c_libusb_free_ss_usb_device_capability_descriptor,
-            _dart_libusb_free_ss_usb_device_capability_descriptor>(
-        'libusb_free_ss_usb_device_capability_descriptor');
-    return _libusb_free_ss_usb_device_capability_descriptor(
+    return (_libusb_free_ss_usb_device_capability_descriptor ??=
+        _dylib.lookupFunction<
+                _c_libusb_free_ss_usb_device_capability_descriptor,
+                _dart_libusb_free_ss_usb_device_capability_descriptor>(
+            'libusb_free_ss_usb_device_capability_descriptor'))(
       ss_usb_device_cap,
     );
   }
 
-  _dart_libusb_free_ss_usb_device_capability_descriptor
+  _dart_libusb_free_ss_usb_device_capability_descriptor?
       _libusb_free_ss_usb_device_capability_descriptor;
 
   int libusb_get_container_id_descriptor(
@@ -434,74 +391,71 @@ class Libusb {
     ffi.Pointer<libusb_bos_dev_capability_descriptor> dev_cap,
     ffi.Pointer<ffi.Pointer<libusb_container_id_descriptor>> container_id,
   ) {
-    _libusb_get_container_id_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_get_container_id_descriptor ??= _dylib.lookupFunction<
             _c_libusb_get_container_id_descriptor,
             _dart_libusb_get_container_id_descriptor>(
-        'libusb_get_container_id_descriptor');
-    return _libusb_get_container_id_descriptor(
+        'libusb_get_container_id_descriptor'))(
       ctx,
       dev_cap,
       container_id,
     );
   }
 
-  _dart_libusb_get_container_id_descriptor _libusb_get_container_id_descriptor;
+  _dart_libusb_get_container_id_descriptor? _libusb_get_container_id_descriptor;
 
   void libusb_free_container_id_descriptor(
     ffi.Pointer<libusb_container_id_descriptor> container_id,
   ) {
-    _libusb_free_container_id_descriptor ??= _dylib.lookupFunction<
+    return (_libusb_free_container_id_descriptor ??= _dylib.lookupFunction<
             _c_libusb_free_container_id_descriptor,
             _dart_libusb_free_container_id_descriptor>(
-        'libusb_free_container_id_descriptor');
-    return _libusb_free_container_id_descriptor(
+        'libusb_free_container_id_descriptor'))(
       container_id,
     );
   }
 
-  _dart_libusb_free_container_id_descriptor
+  _dart_libusb_free_container_id_descriptor?
       _libusb_free_container_id_descriptor;
 
   int libusb_get_bus_number(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_get_bus_number ??= _dylib.lookupFunction<_c_libusb_get_bus_number,
-        _dart_libusb_get_bus_number>('libusb_get_bus_number');
-    return _libusb_get_bus_number(
+    return (_libusb_get_bus_number ??= _dylib.lookupFunction<
+        _c_libusb_get_bus_number,
+        _dart_libusb_get_bus_number>('libusb_get_bus_number'))(
       dev,
     );
   }
 
-  _dart_libusb_get_bus_number _libusb_get_bus_number;
+  _dart_libusb_get_bus_number? _libusb_get_bus_number;
 
   int libusb_get_port_number(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_get_port_number ??= _dylib.lookupFunction<_c_libusb_get_port_number,
-        _dart_libusb_get_port_number>('libusb_get_port_number');
-    return _libusb_get_port_number(
+    return (_libusb_get_port_number ??= _dylib.lookupFunction<
+        _c_libusb_get_port_number,
+        _dart_libusb_get_port_number>('libusb_get_port_number'))(
       dev,
     );
   }
 
-  _dart_libusb_get_port_number _libusb_get_port_number;
+  _dart_libusb_get_port_number? _libusb_get_port_number;
 
   int libusb_get_port_numbers(
     ffi.Pointer<libusb_device> dev,
     ffi.Pointer<ffi.Uint8> port_numbers,
     int port_numbers_len,
   ) {
-    _libusb_get_port_numbers ??= _dylib.lookupFunction<
+    return (_libusb_get_port_numbers ??= _dylib.lookupFunction<
         _c_libusb_get_port_numbers,
-        _dart_libusb_get_port_numbers>('libusb_get_port_numbers');
-    return _libusb_get_port_numbers(
+        _dart_libusb_get_port_numbers>('libusb_get_port_numbers'))(
       dev,
       port_numbers,
       port_numbers_len,
     );
   }
 
-  _dart_libusb_get_port_numbers _libusb_get_port_numbers;
+  _dart_libusb_get_port_numbers? _libusb_get_port_numbers;
 
   int libusb_get_port_path(
     ffi.Pointer<libusb_context> ctx,
@@ -509,9 +463,9 @@ class Libusb {
     ffi.Pointer<ffi.Uint8> path,
     int path_length,
   ) {
-    _libusb_get_port_path ??= _dylib.lookupFunction<_c_libusb_get_port_path,
-        _dart_libusb_get_port_path>('libusb_get_port_path');
-    return _libusb_get_port_path(
+    return (_libusb_get_port_path ??= _dylib.lookupFunction<
+        _c_libusb_get_port_path,
+        _dart_libusb_get_port_path>('libusb_get_port_path'))(
       ctx,
       dev,
       path,
@@ -519,238 +473,226 @@ class Libusb {
     );
   }
 
-  _dart_libusb_get_port_path _libusb_get_port_path;
+  _dart_libusb_get_port_path? _libusb_get_port_path;
 
   ffi.Pointer<libusb_device> libusb_get_parent(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_get_parent ??=
+    return (_libusb_get_parent ??=
         _dylib.lookupFunction<_c_libusb_get_parent, _dart_libusb_get_parent>(
-            'libusb_get_parent');
-    return _libusb_get_parent(
+            'libusb_get_parent'))(
       dev,
     );
   }
 
-  _dart_libusb_get_parent _libusb_get_parent;
+  _dart_libusb_get_parent? _libusb_get_parent;
 
   int libusb_get_device_address(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_get_device_address ??= _dylib.lookupFunction<
+    return (_libusb_get_device_address ??= _dylib.lookupFunction<
         _c_libusb_get_device_address,
-        _dart_libusb_get_device_address>('libusb_get_device_address');
-    return _libusb_get_device_address(
+        _dart_libusb_get_device_address>('libusb_get_device_address'))(
       dev,
     );
   }
 
-  _dart_libusb_get_device_address _libusb_get_device_address;
+  _dart_libusb_get_device_address? _libusb_get_device_address;
 
   int libusb_get_device_speed(
     ffi.Pointer<libusb_device> dev,
   ) {
-    _libusb_get_device_speed ??= _dylib.lookupFunction<
+    return (_libusb_get_device_speed ??= _dylib.lookupFunction<
         _c_libusb_get_device_speed,
-        _dart_libusb_get_device_speed>('libusb_get_device_speed');
-    return _libusb_get_device_speed(
+        _dart_libusb_get_device_speed>('libusb_get_device_speed'))(
       dev,
     );
   }
 
-  _dart_libusb_get_device_speed _libusb_get_device_speed;
+  _dart_libusb_get_device_speed? _libusb_get_device_speed;
 
   int libusb_get_max_packet_size(
     ffi.Pointer<libusb_device> dev,
     int endpoint,
   ) {
-    _libusb_get_max_packet_size ??= _dylib.lookupFunction<
+    return (_libusb_get_max_packet_size ??= _dylib.lookupFunction<
         _c_libusb_get_max_packet_size,
-        _dart_libusb_get_max_packet_size>('libusb_get_max_packet_size');
-    return _libusb_get_max_packet_size(
+        _dart_libusb_get_max_packet_size>('libusb_get_max_packet_size'))(
       dev,
       endpoint,
     );
   }
 
-  _dart_libusb_get_max_packet_size _libusb_get_max_packet_size;
+  _dart_libusb_get_max_packet_size? _libusb_get_max_packet_size;
 
   int libusb_get_max_iso_packet_size(
     ffi.Pointer<libusb_device> dev,
     int endpoint,
   ) {
-    _libusb_get_max_iso_packet_size ??= _dylib.lookupFunction<
-        _c_libusb_get_max_iso_packet_size,
-        _dart_libusb_get_max_iso_packet_size>('libusb_get_max_iso_packet_size');
-    return _libusb_get_max_iso_packet_size(
+    return (_libusb_get_max_iso_packet_size ??= _dylib.lookupFunction<
+            _c_libusb_get_max_iso_packet_size,
+            _dart_libusb_get_max_iso_packet_size>(
+        'libusb_get_max_iso_packet_size'))(
       dev,
       endpoint,
     );
   }
 
-  _dart_libusb_get_max_iso_packet_size _libusb_get_max_iso_packet_size;
+  _dart_libusb_get_max_iso_packet_size? _libusb_get_max_iso_packet_size;
 
   int libusb_wrap_sys_device(
     ffi.Pointer<libusb_context> ctx,
     int sys_dev,
     ffi.Pointer<ffi.Pointer<libusb_device_handle>> dev_handle,
   ) {
-    _libusb_wrap_sys_device ??= _dylib.lookupFunction<_c_libusb_wrap_sys_device,
-        _dart_libusb_wrap_sys_device>('libusb_wrap_sys_device');
-    return _libusb_wrap_sys_device(
+    return (_libusb_wrap_sys_device ??= _dylib.lookupFunction<
+        _c_libusb_wrap_sys_device,
+        _dart_libusb_wrap_sys_device>('libusb_wrap_sys_device'))(
       ctx,
       sys_dev,
       dev_handle,
     );
   }
 
-  _dart_libusb_wrap_sys_device _libusb_wrap_sys_device;
+  _dart_libusb_wrap_sys_device? _libusb_wrap_sys_device;
 
   int libusb_open(
     ffi.Pointer<libusb_device> dev,
     ffi.Pointer<ffi.Pointer<libusb_device_handle>> dev_handle,
   ) {
-    _libusb_open ??=
-        _dylib.lookupFunction<_c_libusb_open, _dart_libusb_open>('libusb_open');
-    return _libusb_open(
+    return (_libusb_open ??= _dylib
+        .lookupFunction<_c_libusb_open, _dart_libusb_open>('libusb_open'))(
       dev,
       dev_handle,
     );
   }
 
-  _dart_libusb_open _libusb_open;
+  _dart_libusb_open? _libusb_open;
 
   void libusb_close(
     ffi.Pointer<libusb_device_handle> dev_handle,
   ) {
-    _libusb_close ??= _dylib
-        .lookupFunction<_c_libusb_close, _dart_libusb_close>('libusb_close');
-    return _libusb_close(
+    return (_libusb_close ??= _dylib
+        .lookupFunction<_c_libusb_close, _dart_libusb_close>('libusb_close'))(
       dev_handle,
     );
   }
 
-  _dart_libusb_close _libusb_close;
+  _dart_libusb_close? _libusb_close;
 
   ffi.Pointer<libusb_device> libusb_get_device(
     ffi.Pointer<libusb_device_handle> dev_handle,
   ) {
-    _libusb_get_device ??=
+    return (_libusb_get_device ??=
         _dylib.lookupFunction<_c_libusb_get_device, _dart_libusb_get_device>(
-            'libusb_get_device');
-    return _libusb_get_device(
+            'libusb_get_device'))(
       dev_handle,
     );
   }
 
-  _dart_libusb_get_device _libusb_get_device;
+  _dart_libusb_get_device? _libusb_get_device;
 
   int libusb_set_configuration(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int configuration,
   ) {
-    _libusb_set_configuration ??= _dylib.lookupFunction<
+    return (_libusb_set_configuration ??= _dylib.lookupFunction<
         _c_libusb_set_configuration,
-        _dart_libusb_set_configuration>('libusb_set_configuration');
-    return _libusb_set_configuration(
+        _dart_libusb_set_configuration>('libusb_set_configuration'))(
       dev_handle,
       configuration,
     );
   }
 
-  _dart_libusb_set_configuration _libusb_set_configuration;
+  _dart_libusb_set_configuration? _libusb_set_configuration;
 
   int libusb_claim_interface(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
   ) {
-    _libusb_claim_interface ??= _dylib.lookupFunction<_c_libusb_claim_interface,
-        _dart_libusb_claim_interface>('libusb_claim_interface');
-    return _libusb_claim_interface(
+    return (_libusb_claim_interface ??= _dylib.lookupFunction<
+        _c_libusb_claim_interface,
+        _dart_libusb_claim_interface>('libusb_claim_interface'))(
       dev_handle,
       interface_number,
     );
   }
 
-  _dart_libusb_claim_interface _libusb_claim_interface;
+  _dart_libusb_claim_interface? _libusb_claim_interface;
 
   int libusb_release_interface(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
   ) {
-    _libusb_release_interface ??= _dylib.lookupFunction<
+    return (_libusb_release_interface ??= _dylib.lookupFunction<
         _c_libusb_release_interface,
-        _dart_libusb_release_interface>('libusb_release_interface');
-    return _libusb_release_interface(
+        _dart_libusb_release_interface>('libusb_release_interface'))(
       dev_handle,
       interface_number,
     );
   }
 
-  _dart_libusb_release_interface _libusb_release_interface;
+  _dart_libusb_release_interface? _libusb_release_interface;
 
   ffi.Pointer<libusb_device_handle> libusb_open_device_with_vid_pid(
     ffi.Pointer<libusb_context> ctx,
     int vendor_id,
     int product_id,
   ) {
-    _libusb_open_device_with_vid_pid ??= _dylib.lookupFunction<
+    return (_libusb_open_device_with_vid_pid ??= _dylib.lookupFunction<
             _c_libusb_open_device_with_vid_pid,
             _dart_libusb_open_device_with_vid_pid>(
-        'libusb_open_device_with_vid_pid');
-    return _libusb_open_device_with_vid_pid(
+        'libusb_open_device_with_vid_pid'))(
       ctx,
       vendor_id,
       product_id,
     );
   }
 
-  _dart_libusb_open_device_with_vid_pid _libusb_open_device_with_vid_pid;
+  _dart_libusb_open_device_with_vid_pid? _libusb_open_device_with_vid_pid;
 
   int libusb_set_interface_alt_setting(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
     int alternate_setting,
   ) {
-    _libusb_set_interface_alt_setting ??= _dylib.lookupFunction<
+    return (_libusb_set_interface_alt_setting ??= _dylib.lookupFunction<
             _c_libusb_set_interface_alt_setting,
             _dart_libusb_set_interface_alt_setting>(
-        'libusb_set_interface_alt_setting');
-    return _libusb_set_interface_alt_setting(
+        'libusb_set_interface_alt_setting'))(
       dev_handle,
       interface_number,
       alternate_setting,
     );
   }
 
-  _dart_libusb_set_interface_alt_setting _libusb_set_interface_alt_setting;
+  _dart_libusb_set_interface_alt_setting? _libusb_set_interface_alt_setting;
 
   int libusb_clear_halt(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int endpoint,
   ) {
-    _libusb_clear_halt ??=
+    return (_libusb_clear_halt ??=
         _dylib.lookupFunction<_c_libusb_clear_halt, _dart_libusb_clear_halt>(
-            'libusb_clear_halt');
-    return _libusb_clear_halt(
+            'libusb_clear_halt'))(
       dev_handle,
       endpoint,
     );
   }
 
-  _dart_libusb_clear_halt _libusb_clear_halt;
+  _dart_libusb_clear_halt? _libusb_clear_halt;
 
   int libusb_reset_device(
     ffi.Pointer<libusb_device_handle> dev_handle,
   ) {
-    _libusb_reset_device ??= _dylib.lookupFunction<_c_libusb_reset_device,
-        _dart_libusb_reset_device>('libusb_reset_device');
-    return _libusb_reset_device(
+    return (_libusb_reset_device ??= _dylib.lookupFunction<
+        _c_libusb_reset_device,
+        _dart_libusb_reset_device>('libusb_reset_device'))(
       dev_handle,
     );
   }
 
-  _dart_libusb_reset_device _libusb_reset_device;
+  _dart_libusb_reset_device? _libusb_reset_device;
 
   int libusb_alloc_streams(
     ffi.Pointer<libusb_device_handle> dev_handle,
@@ -758,9 +700,9 @@ class Libusb {
     ffi.Pointer<ffi.Uint8> endpoints,
     int num_endpoints,
   ) {
-    _libusb_alloc_streams ??= _dylib.lookupFunction<_c_libusb_alloc_streams,
-        _dart_libusb_alloc_streams>('libusb_alloc_streams');
-    return _libusb_alloc_streams(
+    return (_libusb_alloc_streams ??= _dylib.lookupFunction<
+        _c_libusb_alloc_streams,
+        _dart_libusb_alloc_streams>('libusb_alloc_streams'))(
       dev_handle,
       num_streams,
       endpoints,
@@ -768,596 +710,185 @@ class Libusb {
     );
   }
 
-  _dart_libusb_alloc_streams _libusb_alloc_streams;
+  _dart_libusb_alloc_streams? _libusb_alloc_streams;
 
   int libusb_free_streams(
     ffi.Pointer<libusb_device_handle> dev_handle,
     ffi.Pointer<ffi.Uint8> endpoints,
     int num_endpoints,
   ) {
-    _libusb_free_streams ??= _dylib.lookupFunction<_c_libusb_free_streams,
-        _dart_libusb_free_streams>('libusb_free_streams');
-    return _libusb_free_streams(
+    return (_libusb_free_streams ??= _dylib.lookupFunction<
+        _c_libusb_free_streams,
+        _dart_libusb_free_streams>('libusb_free_streams'))(
       dev_handle,
       endpoints,
       num_endpoints,
     );
   }
 
-  _dart_libusb_free_streams _libusb_free_streams;
+  _dart_libusb_free_streams? _libusb_free_streams;
 
   ffi.Pointer<ffi.Uint8> libusb_dev_mem_alloc(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int length,
   ) {
-    _libusb_dev_mem_alloc ??= _dylib.lookupFunction<_c_libusb_dev_mem_alloc,
-        _dart_libusb_dev_mem_alloc>('libusb_dev_mem_alloc');
-    return _libusb_dev_mem_alloc(
+    return (_libusb_dev_mem_alloc ??= _dylib.lookupFunction<
+        _c_libusb_dev_mem_alloc,
+        _dart_libusb_dev_mem_alloc>('libusb_dev_mem_alloc'))(
       dev_handle,
       length,
     );
   }
 
-  _dart_libusb_dev_mem_alloc _libusb_dev_mem_alloc;
+  _dart_libusb_dev_mem_alloc? _libusb_dev_mem_alloc;
 
   int libusb_dev_mem_free(
     ffi.Pointer<libusb_device_handle> dev_handle,
     ffi.Pointer<ffi.Uint8> buffer,
     int length,
   ) {
-    _libusb_dev_mem_free ??= _dylib.lookupFunction<_c_libusb_dev_mem_free,
-        _dart_libusb_dev_mem_free>('libusb_dev_mem_free');
-    return _libusb_dev_mem_free(
+    return (_libusb_dev_mem_free ??= _dylib.lookupFunction<
+        _c_libusb_dev_mem_free,
+        _dart_libusb_dev_mem_free>('libusb_dev_mem_free'))(
       dev_handle,
       buffer,
       length,
     );
   }
 
-  _dart_libusb_dev_mem_free _libusb_dev_mem_free;
+  _dart_libusb_dev_mem_free? _libusb_dev_mem_free;
 
   int libusb_kernel_driver_active(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
   ) {
-    _libusb_kernel_driver_active ??= _dylib.lookupFunction<
+    return (_libusb_kernel_driver_active ??= _dylib.lookupFunction<
         _c_libusb_kernel_driver_active,
-        _dart_libusb_kernel_driver_active>('libusb_kernel_driver_active');
-    return _libusb_kernel_driver_active(
+        _dart_libusb_kernel_driver_active>('libusb_kernel_driver_active'))(
       dev_handle,
       interface_number,
     );
   }
 
-  _dart_libusb_kernel_driver_active _libusb_kernel_driver_active;
+  _dart_libusb_kernel_driver_active? _libusb_kernel_driver_active;
 
   int libusb_detach_kernel_driver(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
   ) {
-    _libusb_detach_kernel_driver ??= _dylib.lookupFunction<
+    return (_libusb_detach_kernel_driver ??= _dylib.lookupFunction<
         _c_libusb_detach_kernel_driver,
-        _dart_libusb_detach_kernel_driver>('libusb_detach_kernel_driver');
-    return _libusb_detach_kernel_driver(
+        _dart_libusb_detach_kernel_driver>('libusb_detach_kernel_driver'))(
       dev_handle,
       interface_number,
     );
   }
 
-  _dart_libusb_detach_kernel_driver _libusb_detach_kernel_driver;
+  _dart_libusb_detach_kernel_driver? _libusb_detach_kernel_driver;
 
   int libusb_attach_kernel_driver(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int interface_number,
   ) {
-    _libusb_attach_kernel_driver ??= _dylib.lookupFunction<
+    return (_libusb_attach_kernel_driver ??= _dylib.lookupFunction<
         _c_libusb_attach_kernel_driver,
-        _dart_libusb_attach_kernel_driver>('libusb_attach_kernel_driver');
-    return _libusb_attach_kernel_driver(
+        _dart_libusb_attach_kernel_driver>('libusb_attach_kernel_driver'))(
       dev_handle,
       interface_number,
     );
   }
 
-  _dart_libusb_attach_kernel_driver _libusb_attach_kernel_driver;
+  _dart_libusb_attach_kernel_driver? _libusb_attach_kernel_driver;
 
   int libusb_set_auto_detach_kernel_driver(
     ffi.Pointer<libusb_device_handle> dev_handle,
     int enable,
   ) {
-    _libusb_set_auto_detach_kernel_driver ??= _dylib.lookupFunction<
+    return (_libusb_set_auto_detach_kernel_driver ??= _dylib.lookupFunction<
             _c_libusb_set_auto_detach_kernel_driver,
             _dart_libusb_set_auto_detach_kernel_driver>(
-        'libusb_set_auto_detach_kernel_driver');
-    return _libusb_set_auto_detach_kernel_driver(
+        'libusb_set_auto_detach_kernel_driver'))(
       dev_handle,
       enable,
     );
   }
 
-  _dart_libusb_set_auto_detach_kernel_driver
+  _dart_libusb_set_auto_detach_kernel_driver?
       _libusb_set_auto_detach_kernel_driver;
-
-  /// \ingroup libusb_asyncio
-  /// Get the data section of a control transfer. This convenience function is here
-  /// to remind you that the data does not start until 8 bytes into the actual
-  /// buffer, as the setup packet comes first.
-  ///
-  /// Calling this function only makes sense from a transfer callback function,
-  /// or situations where you have already allocated a suitably sized buffer at
-  /// transfer->buffer.
-  ///
-  /// \param transfer a transfer
-  /// \returns pointer to the first byte of the data section
-  @Deprecated('inline')
-  ffi.Pointer<ffi.Uint8> libusb_control_transfer_get_data(
-    ffi.Pointer<libusb_transfer> transfer,
-  ) {
-    _libusb_control_transfer_get_data ??= _dylib.lookupFunction<
-            _c_libusb_control_transfer_get_data,
-            _dart_libusb_control_transfer_get_data>(
-        'libusb_control_transfer_get_data');
-    return _libusb_control_transfer_get_data(
-      transfer,
-    );
-  }
-
-  _dart_libusb_control_transfer_get_data _libusb_control_transfer_get_data;
-
-  /// \ingroup libusb_asyncio
-  /// Get the control setup packet of a control transfer. This convenience
-  /// function is here to remind you that the control setup occupies the first
-  /// 8 bytes of the transfer data buffer.
-  ///
-  /// Calling this function only makes sense from a transfer callback function,
-  /// or situations where you have already allocated a suitably sized buffer at
-  /// transfer->buffer.
-  ///
-  /// \param transfer a transfer
-  /// \returns a casted pointer to the start of the transfer data buffer
-  ffi.Pointer<libusb_control_setup> libusb_control_transfer_get_setup(
-    ffi.Pointer<libusb_transfer> transfer,
-  ) {
-    _libusb_control_transfer_get_setup ??= _dylib.lookupFunction<
-            _c_libusb_control_transfer_get_setup,
-            _dart_libusb_control_transfer_get_setup>(
-        'libusb_control_transfer_get_setup');
-    return _libusb_control_transfer_get_setup(
-      transfer,
-    );
-  }
-
-  _dart_libusb_control_transfer_get_setup _libusb_control_transfer_get_setup;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the setup packet (first 8 bytes of the data
-  /// buffer) for a control transfer. The wIndex, wValue and wLength values should
-  /// be given in host-endian byte order.
-  ///
-  /// \param buffer buffer to output the setup packet into
-  /// This pointer must be aligned to at least 2 bytes boundary.
-  /// \param bmRequestType see the
-  /// \ref libusb_control_setup::bmRequestType "bmRequestType" field of
-  /// \ref libusb_control_setup
-  /// \param bRequest see the
-  /// \ref libusb_control_setup::bRequest "bRequest" field of
-  /// \ref libusb_control_setup
-  /// \param wValue see the
-  /// \ref libusb_control_setup::wValue "wValue" field of
-  /// \ref libusb_control_setup
-  /// \param wIndex see the
-  /// \ref libusb_control_setup::wIndex "wIndex" field of
-  /// \ref libusb_control_setup
-  /// \param wLength see the
-  /// \ref libusb_control_setup::wLength "wLength" field of
-  /// \ref libusb_control_setup
-  void libusb_fill_control_setup(
-    ffi.Pointer<ffi.Uint8> buffer,
-    int bmRequestType,
-    int bRequest,
-    int wValue,
-    int wIndex,
-    int wLength,
-  ) {
-    _libusb_fill_control_setup ??= _dylib.lookupFunction<
-        _c_libusb_fill_control_setup,
-        _dart_libusb_fill_control_setup>('libusb_fill_control_setup');
-    return _libusb_fill_control_setup(
-      buffer,
-      bmRequestType,
-      bRequest,
-      wValue,
-      wIndex,
-      wLength,
-    );
-  }
-
-  _dart_libusb_fill_control_setup _libusb_fill_control_setup;
 
   ffi.Pointer<libusb_transfer> libusb_alloc_transfer(
     int iso_packets,
   ) {
-    _libusb_alloc_transfer ??= _dylib.lookupFunction<_c_libusb_alloc_transfer,
-        _dart_libusb_alloc_transfer>('libusb_alloc_transfer');
-    return _libusb_alloc_transfer(
+    return (_libusb_alloc_transfer ??= _dylib.lookupFunction<
+        _c_libusb_alloc_transfer,
+        _dart_libusb_alloc_transfer>('libusb_alloc_transfer'))(
       iso_packets,
     );
   }
 
-  _dart_libusb_alloc_transfer _libusb_alloc_transfer;
+  _dart_libusb_alloc_transfer? _libusb_alloc_transfer;
 
   int libusb_submit_transfer(
     ffi.Pointer<libusb_transfer> transfer,
   ) {
-    _libusb_submit_transfer ??= _dylib.lookupFunction<_c_libusb_submit_transfer,
-        _dart_libusb_submit_transfer>('libusb_submit_transfer');
-    return _libusb_submit_transfer(
+    return (_libusb_submit_transfer ??= _dylib.lookupFunction<
+        _c_libusb_submit_transfer,
+        _dart_libusb_submit_transfer>('libusb_submit_transfer'))(
       transfer,
     );
   }
 
-  _dart_libusb_submit_transfer _libusb_submit_transfer;
+  _dart_libusb_submit_transfer? _libusb_submit_transfer;
 
   int libusb_cancel_transfer(
     ffi.Pointer<libusb_transfer> transfer,
   ) {
-    _libusb_cancel_transfer ??= _dylib.lookupFunction<_c_libusb_cancel_transfer,
-        _dart_libusb_cancel_transfer>('libusb_cancel_transfer');
-    return _libusb_cancel_transfer(
+    return (_libusb_cancel_transfer ??= _dylib.lookupFunction<
+        _c_libusb_cancel_transfer,
+        _dart_libusb_cancel_transfer>('libusb_cancel_transfer'))(
       transfer,
     );
   }
 
-  _dart_libusb_cancel_transfer _libusb_cancel_transfer;
+  _dart_libusb_cancel_transfer? _libusb_cancel_transfer;
 
   void libusb_free_transfer(
     ffi.Pointer<libusb_transfer> transfer,
   ) {
-    _libusb_free_transfer ??= _dylib.lookupFunction<_c_libusb_free_transfer,
-        _dart_libusb_free_transfer>('libusb_free_transfer');
-    return _libusb_free_transfer(
+    return (_libusb_free_transfer ??= _dylib.lookupFunction<
+        _c_libusb_free_transfer,
+        _dart_libusb_free_transfer>('libusb_free_transfer'))(
       transfer,
     );
   }
 
-  _dart_libusb_free_transfer _libusb_free_transfer;
+  _dart_libusb_free_transfer? _libusb_free_transfer;
 
   void libusb_transfer_set_stream_id(
     ffi.Pointer<libusb_transfer> transfer,
     int stream_id,
   ) {
-    _libusb_transfer_set_stream_id ??= _dylib.lookupFunction<
+    return (_libusb_transfer_set_stream_id ??= _dylib.lookupFunction<
         _c_libusb_transfer_set_stream_id,
-        _dart_libusb_transfer_set_stream_id>('libusb_transfer_set_stream_id');
-    return _libusb_transfer_set_stream_id(
+        _dart_libusb_transfer_set_stream_id>('libusb_transfer_set_stream_id'))(
       transfer,
       stream_id,
     );
   }
 
-  _dart_libusb_transfer_set_stream_id _libusb_transfer_set_stream_id;
+  _dart_libusb_transfer_set_stream_id? _libusb_transfer_set_stream_id;
 
   int libusb_transfer_get_stream_id(
     ffi.Pointer<libusb_transfer> transfer,
   ) {
-    _libusb_transfer_get_stream_id ??= _dylib.lookupFunction<
+    return (_libusb_transfer_get_stream_id ??= _dylib.lookupFunction<
         _c_libusb_transfer_get_stream_id,
-        _dart_libusb_transfer_get_stream_id>('libusb_transfer_get_stream_id');
-    return _libusb_transfer_get_stream_id(
+        _dart_libusb_transfer_get_stream_id>('libusb_transfer_get_stream_id'))(
       transfer,
     );
   }
 
-  _dart_libusb_transfer_get_stream_id _libusb_transfer_get_stream_id;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the required \ref libusb_transfer fields
-  /// for a control transfer.
-  ///
-  /// If you pass a transfer buffer to this function, the first 8 bytes will
-  /// be interpreted as a control setup packet, and the wLength field will be
-  /// used to automatically populate the \ref libusb_transfer::length "length"
-  /// field of the transfer. Therefore the recommended approach is:
-  /// -# Allocate a suitably sized data buffer (including space for control setup)
-  /// -# Call libusb_fill_control_setup()
-  /// -# If this is a host-to-device transfer with a data stage, put the data
-  /// in place after the setup packet
-  /// -# Call this function
-  /// -# Call libusb_submit_transfer()
-  ///
-  /// It is also legal to pass a NULL buffer to this function, in which case this
-  /// function will not attempt to populate the length field. Remember that you
-  /// must then populate the buffer and length fields later.
-  ///
-  /// \param transfer the transfer to populate
-  /// \param dev_handle handle of the device that will handle the transfer
-  /// \param buffer data buffer. If provided, this function will interpret the
-  /// first 8 bytes as a setup packet and infer the transfer length from that.
-  /// This pointer must be aligned to at least 2 bytes boundary.
-  /// \param callback callback function to be invoked on transfer completion
-  /// \param user_data user data to pass to callback function
-  /// \param timeout timeout for the transfer in milliseconds
-  @Deprecated('inline')
-  void libusb_fill_control_transfer(
-    ffi.Pointer<libusb_transfer> transfer,
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    ffi.Pointer<ffi.Uint8> buffer,
-    ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-    ffi.Pointer<ffi.Void> user_data,
-    int timeout,
-  ) {
-    _libusb_fill_control_transfer ??= _dylib.lookupFunction<
-        _c_libusb_fill_control_transfer,
-        _dart_libusb_fill_control_transfer>('libusb_fill_control_transfer');
-    return _libusb_fill_control_transfer(
-      transfer,
-      dev_handle,
-      buffer,
-      callback,
-      user_data,
-      timeout,
-    );
-  }
-
-  _dart_libusb_fill_control_transfer _libusb_fill_control_transfer;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the required \ref libusb_transfer fields
-  /// for a bulk transfer.
-  ///
-  /// \param transfer the transfer to populate
-  /// \param dev_handle handle of the device that will handle the transfer
-  /// \param endpoint address of the endpoint where this transfer will be sent
-  /// \param buffer data buffer
-  /// \param length length of data buffer
-  /// \param callback callback function to be invoked on transfer completion
-  /// \param user_data user data to pass to callback function
-  /// \param timeout timeout for the transfer in milliseconds
-  @Deprecated('inline')
-  void libusb_fill_bulk_transfer(
-    ffi.Pointer<libusb_transfer> transfer,
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int endpoint,
-    ffi.Pointer<ffi.Uint8> buffer,
-    int length,
-    ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-    ffi.Pointer<ffi.Void> user_data,
-    int timeout,
-  ) {
-    _libusb_fill_bulk_transfer ??= _dylib.lookupFunction<
-        _c_libusb_fill_bulk_transfer,
-        _dart_libusb_fill_bulk_transfer>('libusb_fill_bulk_transfer');
-    return _libusb_fill_bulk_transfer(
-      transfer,
-      dev_handle,
-      endpoint,
-      buffer,
-      length,
-      callback,
-      user_data,
-      timeout,
-    );
-  }
-
-  _dart_libusb_fill_bulk_transfer _libusb_fill_bulk_transfer;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the required \ref libusb_transfer fields
-  /// for a bulk transfer using bulk streams.
-  ///
-  /// Since version 1.0.19, \ref LIBUSB_API_VERSION >= 0x01000103
-  ///
-  /// \param transfer the transfer to populate
-  /// \param dev_handle handle of the device that will handle the transfer
-  /// \param endpoint address of the endpoint where this transfer will be sent
-  /// \param stream_id bulk stream id for this transfer
-  /// \param buffer data buffer
-  /// \param length length of data buffer
-  /// \param callback callback function to be invoked on transfer completion
-  /// \param user_data user data to pass to callback function
-  /// \param timeout timeout for the transfer in milliseconds
-  @Deprecated('inline')
-  void libusb_fill_bulk_stream_transfer(
-    ffi.Pointer<libusb_transfer> transfer,
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int endpoint,
-    int stream_id,
-    ffi.Pointer<ffi.Uint8> buffer,
-    int length,
-    ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-    ffi.Pointer<ffi.Void> user_data,
-    int timeout,
-  ) {
-    _libusb_fill_bulk_stream_transfer ??= _dylib.lookupFunction<
-            _c_libusb_fill_bulk_stream_transfer,
-            _dart_libusb_fill_bulk_stream_transfer>(
-        'libusb_fill_bulk_stream_transfer');
-    return _libusb_fill_bulk_stream_transfer(
-      transfer,
-      dev_handle,
-      endpoint,
-      stream_id,
-      buffer,
-      length,
-      callback,
-      user_data,
-      timeout,
-    );
-  }
-
-  _dart_libusb_fill_bulk_stream_transfer _libusb_fill_bulk_stream_transfer;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the required \ref libusb_transfer fields
-  /// for an interrupt transfer.
-  ///
-  /// \param transfer the transfer to populate
-  /// \param dev_handle handle of the device that will handle the transfer
-  /// \param endpoint address of the endpoint where this transfer will be sent
-  /// \param buffer data buffer
-  /// \param length length of data buffer
-  /// \param callback callback function to be invoked on transfer completion
-  /// \param user_data user data to pass to callback function
-  /// \param timeout timeout for the transfer in milliseconds
-  void libusb_fill_interrupt_transfer(
-    ffi.Pointer<libusb_transfer> transfer,
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int endpoint,
-    ffi.Pointer<ffi.Uint8> buffer,
-    int length,
-    ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-    ffi.Pointer<ffi.Void> user_data,
-    int timeout,
-  ) {
-    _libusb_fill_interrupt_transfer ??= _dylib.lookupFunction<
-        _c_libusb_fill_interrupt_transfer,
-        _dart_libusb_fill_interrupt_transfer>('libusb_fill_interrupt_transfer');
-    return _libusb_fill_interrupt_transfer(
-      transfer,
-      dev_handle,
-      endpoint,
-      buffer,
-      length,
-      callback,
-      user_data,
-      timeout,
-    );
-  }
-
-  _dart_libusb_fill_interrupt_transfer _libusb_fill_interrupt_transfer;
-
-  /// \ingroup libusb_asyncio
-  /// Helper function to populate the required \ref libusb_transfer fields
-  /// for an isochronous transfer.
-  ///
-  /// \param transfer the transfer to populate
-  /// \param dev_handle handle of the device that will handle the transfer
-  /// \param endpoint address of the endpoint where this transfer will be sent
-  /// \param buffer data buffer
-  /// \param length length of data buffer
-  /// \param num_iso_packets the number of isochronous packets
-  /// \param callback callback function to be invoked on transfer completion
-  /// \param user_data user data to pass to callback function
-  /// \param timeout timeout for the transfer in milliseconds
-  @Deprecated('inline')
-  void libusb_fill_iso_transfer(
-    ffi.Pointer<libusb_transfer> transfer,
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int endpoint,
-    ffi.Pointer<ffi.Uint8> buffer,
-    int length,
-    int num_iso_packets,
-    ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-    ffi.Pointer<ffi.Void> user_data,
-    int timeout,
-  ) {
-    _libusb_fill_iso_transfer ??= _dylib.lookupFunction<
-        _c_libusb_fill_iso_transfer,
-        _dart_libusb_fill_iso_transfer>('libusb_fill_iso_transfer');
-    return _libusb_fill_iso_transfer(
-      transfer,
-      dev_handle,
-      endpoint,
-      buffer,
-      length,
-      num_iso_packets,
-      callback,
-      user_data,
-      timeout,
-    );
-  }
-
-  _dart_libusb_fill_iso_transfer _libusb_fill_iso_transfer;
-
-  /// \ingroup libusb_asyncio
-  /// Convenience function to set the length of all packets in an isochronous
-  /// transfer, based on the num_iso_packets field in the transfer structure.
-  ///
-  /// \param transfer a transfer
-  /// \param length the length to set in each isochronous packet descriptor
-  /// \see libusb_get_max_packet_size()
-  @Deprecated('inline')
-  void libusb_set_iso_packet_lengths(
-    ffi.Pointer<libusb_transfer> transfer,
-    int length,
-  ) {
-    _libusb_set_iso_packet_lengths ??= _dylib.lookupFunction<
-        _c_libusb_set_iso_packet_lengths,
-        _dart_libusb_set_iso_packet_lengths>('libusb_set_iso_packet_lengths');
-    return _libusb_set_iso_packet_lengths(
-      transfer,
-      length,
-    );
-  }
-
-  _dart_libusb_set_iso_packet_lengths _libusb_set_iso_packet_lengths;
-
-  /// \ingroup libusb_asyncio
-  /// Convenience function to locate the position of an isochronous packet
-  /// within the buffer of an isochronous transfer.
-  ///
-  /// This is a thorough function which loops through all preceding packets,
-  /// accumulating their lengths to find the position of the specified packet.
-  /// Typically you will assign equal lengths to each packet in the transfer,
-  /// and hence the above method is sub-optimal. You may wish to use
-  /// libusb_get_iso_packet_buffer_simple() instead.
-  ///
-  /// \param transfer a transfer
-  /// \param packet the packet to return the address of
-  /// \returns the base address of the packet buffer inside the transfer buffer,
-  /// or NULL if the packet does not exist.
-  /// \see libusb_get_iso_packet_buffer_simple()
-  @Deprecated('inline')
-  ffi.Pointer<ffi.Uint8> libusb_get_iso_packet_buffer(
-    ffi.Pointer<libusb_transfer> transfer,
-    int packet,
-  ) {
-    _libusb_get_iso_packet_buffer ??= _dylib.lookupFunction<
-        _c_libusb_get_iso_packet_buffer,
-        _dart_libusb_get_iso_packet_buffer>('libusb_get_iso_packet_buffer');
-    return _libusb_get_iso_packet_buffer(
-      transfer,
-      packet,
-    );
-  }
-
-  _dart_libusb_get_iso_packet_buffer _libusb_get_iso_packet_buffer;
-
-  /// \ingroup libusb_asyncio
-  /// Convenience function to locate the position of an isochronous packet
-  /// within the buffer of an isochronous transfer, for transfers where each
-  /// packet is of identical size.
-  ///
-  /// This function relies on the assumption that every packet within the transfer
-  /// is of identical size to the first packet. Calculating the location of
-  /// the packet buffer is then just a simple calculation:
-  /// <tt>buffer + (packet_size * packet)</tt>
-  ///
-  /// Do not use this function on transfers other than those that have identical
-  /// packet lengths for each packet.
-  ///
-  /// \param transfer a transfer
-  /// \param packet the packet to return the address of
-  /// \returns the base address of the packet buffer inside the transfer buffer,
-  /// or NULL if the packet does not exist.
-  /// \see libusb_get_iso_packet_buffer()
-  @Deprecated('inline')
-  ffi.Pointer<ffi.Uint8> libusb_get_iso_packet_buffer_simple(
-    ffi.Pointer<libusb_transfer> transfer,
-    int packet,
-  ) {
-    _libusb_get_iso_packet_buffer_simple ??= _dylib.lookupFunction<
-            _c_libusb_get_iso_packet_buffer_simple,
-            _dart_libusb_get_iso_packet_buffer_simple>(
-        'libusb_get_iso_packet_buffer_simple');
-    return _libusb_get_iso_packet_buffer_simple(
-      transfer,
-      packet,
-    );
-  }
-
-  _dart_libusb_get_iso_packet_buffer_simple
-      _libusb_get_iso_packet_buffer_simple;
+  _dart_libusb_transfer_get_stream_id? _libusb_transfer_get_stream_id;
 
   int libusb_control_transfer(
     ffi.Pointer<libusb_device_handle> dev_handle,
@@ -1369,10 +900,9 @@ class Libusb {
     int wLength,
     int timeout,
   ) {
-    _libusb_control_transfer ??= _dylib.lookupFunction<
+    return (_libusb_control_transfer ??= _dylib.lookupFunction<
         _c_libusb_control_transfer,
-        _dart_libusb_control_transfer>('libusb_control_transfer');
-    return _libusb_control_transfer(
+        _dart_libusb_control_transfer>('libusb_control_transfer'))(
       dev_handle,
       request_type,
       bRequest,
@@ -1384,7 +914,7 @@ class Libusb {
     );
   }
 
-  _dart_libusb_control_transfer _libusb_control_transfer;
+  _dart_libusb_control_transfer? _libusb_control_transfer;
 
   int libusb_bulk_transfer(
     ffi.Pointer<libusb_device_handle> dev_handle,
@@ -1394,9 +924,9 @@ class Libusb {
     ffi.Pointer<ffi.Int32> actual_length,
     int timeout,
   ) {
-    _libusb_bulk_transfer ??= _dylib.lookupFunction<_c_libusb_bulk_transfer,
-        _dart_libusb_bulk_transfer>('libusb_bulk_transfer');
-    return _libusb_bulk_transfer(
+    return (_libusb_bulk_transfer ??= _dylib.lookupFunction<
+        _c_libusb_bulk_transfer,
+        _dart_libusb_bulk_transfer>('libusb_bulk_transfer'))(
       dev_handle,
       endpoint,
       data,
@@ -1406,7 +936,7 @@ class Libusb {
     );
   }
 
-  _dart_libusb_bulk_transfer _libusb_bulk_transfer;
+  _dart_libusb_bulk_transfer? _libusb_bulk_transfer;
 
   int libusb_interrupt_transfer(
     ffi.Pointer<libusb_device_handle> dev_handle,
@@ -1416,10 +946,9 @@ class Libusb {
     ffi.Pointer<ffi.Int32> actual_length,
     int timeout,
   ) {
-    _libusb_interrupt_transfer ??= _dylib.lookupFunction<
+    return (_libusb_interrupt_transfer ??= _dylib.lookupFunction<
         _c_libusb_interrupt_transfer,
-        _dart_libusb_interrupt_transfer>('libusb_interrupt_transfer');
-    return _libusb_interrupt_transfer(
+        _dart_libusb_interrupt_transfer>('libusb_interrupt_transfer'))(
       dev_handle,
       endpoint,
       data,
@@ -1429,74 +958,7 @@ class Libusb {
     );
   }
 
-  _dart_libusb_interrupt_transfer _libusb_interrupt_transfer;
-
-  /// \ingroup libusb_desc
-  /// Retrieve a descriptor from the default control pipe.
-  /// This is a convenience function which formulates the appropriate control
-  /// message to retrieve the descriptor.
-  ///
-  /// \param dev_handle a device handle
-  /// \param desc_type the descriptor type, see \ref libusb_descriptor_type
-  /// \param desc_index the index of the descriptor to retrieve
-  /// \param data output buffer for descriptor
-  /// \param length size of data buffer
-  /// \returns number of bytes returned in data, or LIBUSB_ERROR code on failure
-  @Deprecated('inline')
-  int libusb_get_descriptor(
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int desc_type,
-    int desc_index,
-    ffi.Pointer<ffi.Uint8> data,
-    int length,
-  ) {
-    _libusb_get_descriptor ??= _dylib.lookupFunction<_c_libusb_get_descriptor,
-        _dart_libusb_get_descriptor>('libusb_get_descriptor');
-    return _libusb_get_descriptor(
-      dev_handle,
-      desc_type,
-      desc_index,
-      data,
-      length,
-    );
-  }
-
-  _dart_libusb_get_descriptor _libusb_get_descriptor;
-
-  /// \ingroup libusb_desc
-  /// Retrieve a descriptor from a device.
-  /// This is a convenience function which formulates the appropriate control
-  /// message to retrieve the descriptor. The string returned is Unicode, as
-  /// detailed in the USB specifications.
-  ///
-  /// \param dev_handle a device handle
-  /// \param desc_index the index of the descriptor to retrieve
-  /// \param langid the language ID for the string descriptor
-  /// \param data output buffer for descriptor
-  /// \param length size of data buffer
-  /// \returns number of bytes returned in data, or LIBUSB_ERROR code on failure
-  /// \see libusb_get_string_descriptor_ascii()
-  @Deprecated('inline')
-  int libusb_get_string_descriptor(
-    ffi.Pointer<libusb_device_handle> dev_handle,
-    int desc_index,
-    int langid,
-    ffi.Pointer<ffi.Uint8> data,
-    int length,
-  ) {
-    _libusb_get_string_descriptor ??= _dylib.lookupFunction<
-        _c_libusb_get_string_descriptor,
-        _dart_libusb_get_string_descriptor>('libusb_get_string_descriptor');
-    return _libusb_get_string_descriptor(
-      dev_handle,
-      desc_index,
-      langid,
-      data,
-      length,
-    );
-  }
-
-  _dart_libusb_get_string_descriptor _libusb_get_string_descriptor;
+  _dart_libusb_interrupt_transfer? _libusb_interrupt_transfer;
 
   int libusb_get_string_descriptor_ascii(
     ffi.Pointer<libusb_device_handle> dev_handle,
@@ -1504,11 +966,10 @@ class Libusb {
     ffi.Pointer<ffi.Uint8> data,
     int length,
   ) {
-    _libusb_get_string_descriptor_ascii ??= _dylib.lookupFunction<
+    return (_libusb_get_string_descriptor_ascii ??= _dylib.lookupFunction<
             _c_libusb_get_string_descriptor_ascii,
             _dart_libusb_get_string_descriptor_ascii>(
-        'libusb_get_string_descriptor_ascii');
-    return _libusb_get_string_descriptor_ascii(
+        'libusb_get_string_descriptor_ascii'))(
       dev_handle,
       desc_index,
       data,
@@ -1516,252 +977,242 @@ class Libusb {
     );
   }
 
-  _dart_libusb_get_string_descriptor_ascii _libusb_get_string_descriptor_ascii;
+  _dart_libusb_get_string_descriptor_ascii? _libusb_get_string_descriptor_ascii;
 
   int libusb_try_lock_events(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_try_lock_events ??= _dylib.lookupFunction<_c_libusb_try_lock_events,
-        _dart_libusb_try_lock_events>('libusb_try_lock_events');
-    return _libusb_try_lock_events(
+    return (_libusb_try_lock_events ??= _dylib.lookupFunction<
+        _c_libusb_try_lock_events,
+        _dart_libusb_try_lock_events>('libusb_try_lock_events'))(
       ctx,
     );
   }
 
-  _dart_libusb_try_lock_events _libusb_try_lock_events;
+  _dart_libusb_try_lock_events? _libusb_try_lock_events;
 
   void libusb_lock_events(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_lock_events ??=
+    return (_libusb_lock_events ??=
         _dylib.lookupFunction<_c_libusb_lock_events, _dart_libusb_lock_events>(
-            'libusb_lock_events');
-    return _libusb_lock_events(
+            'libusb_lock_events'))(
       ctx,
     );
   }
 
-  _dart_libusb_lock_events _libusb_lock_events;
+  _dart_libusb_lock_events? _libusb_lock_events;
 
   void libusb_unlock_events(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_unlock_events ??= _dylib.lookupFunction<_c_libusb_unlock_events,
-        _dart_libusb_unlock_events>('libusb_unlock_events');
-    return _libusb_unlock_events(
+    return (_libusb_unlock_events ??= _dylib.lookupFunction<
+        _c_libusb_unlock_events,
+        _dart_libusb_unlock_events>('libusb_unlock_events'))(
       ctx,
     );
   }
 
-  _dart_libusb_unlock_events _libusb_unlock_events;
+  _dart_libusb_unlock_events? _libusb_unlock_events;
 
   int libusb_event_handling_ok(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_event_handling_ok ??= _dylib.lookupFunction<
+    return (_libusb_event_handling_ok ??= _dylib.lookupFunction<
         _c_libusb_event_handling_ok,
-        _dart_libusb_event_handling_ok>('libusb_event_handling_ok');
-    return _libusb_event_handling_ok(
+        _dart_libusb_event_handling_ok>('libusb_event_handling_ok'))(
       ctx,
     );
   }
 
-  _dart_libusb_event_handling_ok _libusb_event_handling_ok;
+  _dart_libusb_event_handling_ok? _libusb_event_handling_ok;
 
   int libusb_event_handler_active(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_event_handler_active ??= _dylib.lookupFunction<
+    return (_libusb_event_handler_active ??= _dylib.lookupFunction<
         _c_libusb_event_handler_active,
-        _dart_libusb_event_handler_active>('libusb_event_handler_active');
-    return _libusb_event_handler_active(
+        _dart_libusb_event_handler_active>('libusb_event_handler_active'))(
       ctx,
     );
   }
 
-  _dart_libusb_event_handler_active _libusb_event_handler_active;
+  _dart_libusb_event_handler_active? _libusb_event_handler_active;
 
   void libusb_interrupt_event_handler(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_interrupt_event_handler ??= _dylib.lookupFunction<
-        _c_libusb_interrupt_event_handler,
-        _dart_libusb_interrupt_event_handler>('libusb_interrupt_event_handler');
-    return _libusb_interrupt_event_handler(
+    return (_libusb_interrupt_event_handler ??= _dylib.lookupFunction<
+            _c_libusb_interrupt_event_handler,
+            _dart_libusb_interrupt_event_handler>(
+        'libusb_interrupt_event_handler'))(
       ctx,
     );
   }
 
-  _dart_libusb_interrupt_event_handler _libusb_interrupt_event_handler;
+  _dart_libusb_interrupt_event_handler? _libusb_interrupt_event_handler;
 
   void libusb_lock_event_waiters(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_lock_event_waiters ??= _dylib.lookupFunction<
+    return (_libusb_lock_event_waiters ??= _dylib.lookupFunction<
         _c_libusb_lock_event_waiters,
-        _dart_libusb_lock_event_waiters>('libusb_lock_event_waiters');
-    return _libusb_lock_event_waiters(
+        _dart_libusb_lock_event_waiters>('libusb_lock_event_waiters'))(
       ctx,
     );
   }
 
-  _dart_libusb_lock_event_waiters _libusb_lock_event_waiters;
+  _dart_libusb_lock_event_waiters? _libusb_lock_event_waiters;
 
   void libusb_unlock_event_waiters(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_unlock_event_waiters ??= _dylib.lookupFunction<
+    return (_libusb_unlock_event_waiters ??= _dylib.lookupFunction<
         _c_libusb_unlock_event_waiters,
-        _dart_libusb_unlock_event_waiters>('libusb_unlock_event_waiters');
-    return _libusb_unlock_event_waiters(
+        _dart_libusb_unlock_event_waiters>('libusb_unlock_event_waiters'))(
       ctx,
     );
   }
 
-  _dart_libusb_unlock_event_waiters _libusb_unlock_event_waiters;
+  _dart_libusb_unlock_event_waiters? _libusb_unlock_event_waiters;
 
   int libusb_wait_for_event(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<timeval32> tv,
   ) {
-    _libusb_wait_for_event ??= _dylib.lookupFunction<_c_libusb_wait_for_event,
-        _dart_libusb_wait_for_event>('libusb_wait_for_event');
-    return _libusb_wait_for_event(
+    return (_libusb_wait_for_event ??= _dylib.lookupFunction<
+        _c_libusb_wait_for_event,
+        _dart_libusb_wait_for_event>('libusb_wait_for_event'))(
       ctx,
       tv,
     );
   }
 
-  _dart_libusb_wait_for_event _libusb_wait_for_event;
+  _dart_libusb_wait_for_event? _libusb_wait_for_event;
 
   int libusb_handle_events_timeout(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<timeval32> tv,
   ) {
-    _libusb_handle_events_timeout ??= _dylib.lookupFunction<
+    return (_libusb_handle_events_timeout ??= _dylib.lookupFunction<
         _c_libusb_handle_events_timeout,
-        _dart_libusb_handle_events_timeout>('libusb_handle_events_timeout');
-    return _libusb_handle_events_timeout(
+        _dart_libusb_handle_events_timeout>('libusb_handle_events_timeout'))(
       ctx,
       tv,
     );
   }
 
-  _dart_libusb_handle_events_timeout _libusb_handle_events_timeout;
+  _dart_libusb_handle_events_timeout? _libusb_handle_events_timeout;
 
   int libusb_handle_events_timeout_completed(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<timeval32> tv,
     ffi.Pointer<ffi.Int32> completed,
   ) {
-    _libusb_handle_events_timeout_completed ??= _dylib.lookupFunction<
+    return (_libusb_handle_events_timeout_completed ??= _dylib.lookupFunction<
             _c_libusb_handle_events_timeout_completed,
             _dart_libusb_handle_events_timeout_completed>(
-        'libusb_handle_events_timeout_completed');
-    return _libusb_handle_events_timeout_completed(
+        'libusb_handle_events_timeout_completed'))(
       ctx,
       tv,
       completed,
     );
   }
 
-  _dart_libusb_handle_events_timeout_completed
+  _dart_libusb_handle_events_timeout_completed?
       _libusb_handle_events_timeout_completed;
 
   int libusb_handle_events(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_handle_events ??= _dylib.lookupFunction<_c_libusb_handle_events,
-        _dart_libusb_handle_events>('libusb_handle_events');
-    return _libusb_handle_events(
+    return (_libusb_handle_events ??= _dylib.lookupFunction<
+        _c_libusb_handle_events,
+        _dart_libusb_handle_events>('libusb_handle_events'))(
       ctx,
     );
   }
 
-  _dart_libusb_handle_events _libusb_handle_events;
+  _dart_libusb_handle_events? _libusb_handle_events;
 
   int libusb_handle_events_completed(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<ffi.Int32> completed,
   ) {
-    _libusb_handle_events_completed ??= _dylib.lookupFunction<
-        _c_libusb_handle_events_completed,
-        _dart_libusb_handle_events_completed>('libusb_handle_events_completed');
-    return _libusb_handle_events_completed(
+    return (_libusb_handle_events_completed ??= _dylib.lookupFunction<
+            _c_libusb_handle_events_completed,
+            _dart_libusb_handle_events_completed>(
+        'libusb_handle_events_completed'))(
       ctx,
       completed,
     );
   }
 
-  _dart_libusb_handle_events_completed _libusb_handle_events_completed;
+  _dart_libusb_handle_events_completed? _libusb_handle_events_completed;
 
   int libusb_handle_events_locked(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<timeval32> tv,
   ) {
-    _libusb_handle_events_locked ??= _dylib.lookupFunction<
+    return (_libusb_handle_events_locked ??= _dylib.lookupFunction<
         _c_libusb_handle_events_locked,
-        _dart_libusb_handle_events_locked>('libusb_handle_events_locked');
-    return _libusb_handle_events_locked(
+        _dart_libusb_handle_events_locked>('libusb_handle_events_locked'))(
       ctx,
       tv,
     );
   }
 
-  _dart_libusb_handle_events_locked _libusb_handle_events_locked;
+  _dart_libusb_handle_events_locked? _libusb_handle_events_locked;
 
   int libusb_pollfds_handle_timeouts(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_pollfds_handle_timeouts ??= _dylib.lookupFunction<
-        _c_libusb_pollfds_handle_timeouts,
-        _dart_libusb_pollfds_handle_timeouts>('libusb_pollfds_handle_timeouts');
-    return _libusb_pollfds_handle_timeouts(
+    return (_libusb_pollfds_handle_timeouts ??= _dylib.lookupFunction<
+            _c_libusb_pollfds_handle_timeouts,
+            _dart_libusb_pollfds_handle_timeouts>(
+        'libusb_pollfds_handle_timeouts'))(
       ctx,
     );
   }
 
-  _dart_libusb_pollfds_handle_timeouts _libusb_pollfds_handle_timeouts;
+  _dart_libusb_pollfds_handle_timeouts? _libusb_pollfds_handle_timeouts;
 
   int libusb_get_next_timeout(
     ffi.Pointer<libusb_context> ctx,
     ffi.Pointer<timeval32> tv,
   ) {
-    _libusb_get_next_timeout ??= _dylib.lookupFunction<
+    return (_libusb_get_next_timeout ??= _dylib.lookupFunction<
         _c_libusb_get_next_timeout,
-        _dart_libusb_get_next_timeout>('libusb_get_next_timeout');
-    return _libusb_get_next_timeout(
+        _dart_libusb_get_next_timeout>('libusb_get_next_timeout'))(
       ctx,
       tv,
     );
   }
 
-  _dart_libusb_get_next_timeout _libusb_get_next_timeout;
+  _dart_libusb_get_next_timeout? _libusb_get_next_timeout;
 
   ffi.Pointer<ffi.Pointer<libusb_pollfd>> libusb_get_pollfds(
     ffi.Pointer<libusb_context> ctx,
   ) {
-    _libusb_get_pollfds ??=
+    return (_libusb_get_pollfds ??=
         _dylib.lookupFunction<_c_libusb_get_pollfds, _dart_libusb_get_pollfds>(
-            'libusb_get_pollfds');
-    return _libusb_get_pollfds(
+            'libusb_get_pollfds'))(
       ctx,
     );
   }
 
-  _dart_libusb_get_pollfds _libusb_get_pollfds;
+  _dart_libusb_get_pollfds? _libusb_get_pollfds;
 
   void libusb_free_pollfds(
     ffi.Pointer<ffi.Pointer<libusb_pollfd>> pollfds,
   ) {
-    _libusb_free_pollfds ??= _dylib.lookupFunction<_c_libusb_free_pollfds,
-        _dart_libusb_free_pollfds>('libusb_free_pollfds');
-    return _libusb_free_pollfds(
+    return (_libusb_free_pollfds ??= _dylib.lookupFunction<
+        _c_libusb_free_pollfds,
+        _dart_libusb_free_pollfds>('libusb_free_pollfds'))(
       pollfds,
     );
   }
 
-  _dart_libusb_free_pollfds _libusb_free_pollfds;
+  _dart_libusb_free_pollfds? _libusb_free_pollfds;
 
   void libusb_set_pollfd_notifiers(
     ffi.Pointer<libusb_context> ctx,
@@ -1769,10 +1220,9 @@ class Libusb {
     ffi.Pointer<ffi.NativeFunction<libusb_pollfd_removed_cb>> removed_cb,
     ffi.Pointer<ffi.Void> user_data,
   ) {
-    _libusb_set_pollfd_notifiers ??= _dylib.lookupFunction<
+    return (_libusb_set_pollfd_notifiers ??= _dylib.lookupFunction<
         _c_libusb_set_pollfd_notifiers,
-        _dart_libusb_set_pollfd_notifiers>('libusb_set_pollfd_notifiers');
-    return _libusb_set_pollfd_notifiers(
+        _dart_libusb_set_pollfd_notifiers>('libusb_set_pollfd_notifiers'))(
       ctx,
       added_cb,
       removed_cb,
@@ -1780,7 +1230,7 @@ class Libusb {
     );
   }
 
-  _dart_libusb_set_pollfd_notifiers _libusb_set_pollfd_notifiers;
+  _dart_libusb_set_pollfd_notifiers? _libusb_set_pollfd_notifiers;
 
   /// \ingroup libusb_hotplug
   /// Register a hotplug callback function
@@ -1826,11 +1276,10 @@ class Libusb {
     ffi.Pointer<ffi.Void> user_data,
     ffi.Pointer<ffi.Int32> callback_handle,
   ) {
-    _libusb_hotplug_register_callback ??= _dylib.lookupFunction<
+    return (_libusb_hotplug_register_callback ??= _dylib.lookupFunction<
             _c_libusb_hotplug_register_callback,
             _dart_libusb_hotplug_register_callback>(
-        'libusb_hotplug_register_callback');
-    return _libusb_hotplug_register_callback(
+        'libusb_hotplug_register_callback'))(
       ctx,
       events,
       flags,
@@ -1843,7 +1292,7 @@ class Libusb {
     );
   }
 
-  _dart_libusb_hotplug_register_callback _libusb_hotplug_register_callback;
+  _dart_libusb_hotplug_register_callback? _libusb_hotplug_register_callback;
 
   /// \ingroup libusb_hotplug
   /// Deregisters a hotplug callback.
@@ -1859,32 +1308,30 @@ class Libusb {
     ffi.Pointer<libusb_context> ctx,
     int callback_handle,
   ) {
-    _libusb_hotplug_deregister_callback ??= _dylib.lookupFunction<
+    return (_libusb_hotplug_deregister_callback ??= _dylib.lookupFunction<
             _c_libusb_hotplug_deregister_callback,
             _dart_libusb_hotplug_deregister_callback>(
-        'libusb_hotplug_deregister_callback');
-    return _libusb_hotplug_deregister_callback(
+        'libusb_hotplug_deregister_callback'))(
       ctx,
       callback_handle,
     );
   }
 
-  _dart_libusb_hotplug_deregister_callback _libusb_hotplug_deregister_callback;
+  _dart_libusb_hotplug_deregister_callback? _libusb_hotplug_deregister_callback;
 
   int libusb_set_option(
     ffi.Pointer<libusb_context> ctx,
     int option,
   ) {
-    _libusb_set_option ??=
+    return (_libusb_set_option ??=
         _dylib.lookupFunction<_c_libusb_set_option, _dart_libusb_set_option>(
-            'libusb_set_option');
-    return _libusb_set_option(
+            'libusb_set_option'))(
       ctx,
       option,
     );
   }
 
-  _dart_libusb_set_option _libusb_set_option;
+  _dart_libusb_set_option? _libusb_set_option;
 }
 
 /// \ingroup libusb_desc
@@ -2142,64 +1589,64 @@ abstract class libusb_iso_usage_type {
 class libusb_device_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_DEVICE LIBUSB_DT_DEVICE in this
   /// context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// USB specification release number in binary-coded decimal. A value of
   /// 0x0200 indicates USB 2.0, 0x0110 indicates USB 1.1, etc.
   @ffi.Uint16()
-  int bcdUSB;
+  external int bcdUSB;
 
   /// USB-IF class code for the device. See \ref libusb_class_code.
   @ffi.Uint8()
-  int bDeviceClass;
+  external int bDeviceClass;
 
   /// USB-IF subclass code for the device, qualified by the bDeviceClass
   /// value
   @ffi.Uint8()
-  int bDeviceSubClass;
+  external int bDeviceSubClass;
 
   /// USB-IF protocol code for the device, qualified by the bDeviceClass and
   /// bDeviceSubClass values
   @ffi.Uint8()
-  int bDeviceProtocol;
+  external int bDeviceProtocol;
 
   /// Maximum packet size for endpoint 0
   @ffi.Uint8()
-  int bMaxPacketSize0;
+  external int bMaxPacketSize0;
 
   /// USB-IF vendor ID
   @ffi.Uint16()
-  int idVendor;
+  external int idVendor;
 
   /// USB-IF product ID
   @ffi.Uint16()
-  int idProduct;
+  external int idProduct;
 
   /// Device release number in binary-coded decimal
   @ffi.Uint16()
-  int bcdDevice;
+  external int bcdDevice;
 
   /// Index of string descriptor describing manufacturer
   @ffi.Uint8()
-  int iManufacturer;
+  external int iManufacturer;
 
   /// Index of string descriptor describing product
   @ffi.Uint8()
-  int iProduct;
+  external int iProduct;
 
   /// Index of string descriptor containing device serial number
   @ffi.Uint8()
-  int iSerialNumber;
+  external int iSerialNumber;
 
   /// Number of possible configurations
   @ffi.Uint8()
-  int bNumConfigurations;
+  external int bNumConfigurations;
 }
 
 /// \ingroup libusb_desc
@@ -2209,19 +1656,19 @@ class libusb_device_descriptor extends ffi.Struct {
 class libusb_endpoint_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_ENDPOINT LIBUSB_DT_ENDPOINT in
   /// this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// The address of the endpoint described by this descriptor. Bits 0:3 are
   /// the endpoint number. Bits 4:6 are reserved. Bit 7 indicates direction,
   /// see \ref libusb_endpoint_direction.
   @ffi.Uint8()
-  int bEndpointAddress;
+  external int bEndpointAddress;
 
   /// Attributes which apply to the endpoint when it is configured using
   /// the bConfigurationValue. Bits 0:1 determine the transfer type and
@@ -2230,32 +1677,32 @@ class libusb_endpoint_descriptor extends ffi.Struct {
   /// Bits 4:5 are also only used for isochronous endpoints and correspond to
   /// \ref libusb_iso_usage_type. Bits 6:7 are reserved.
   @ffi.Uint8()
-  int bmAttributes;
+  external int bmAttributes;
 
   /// Maximum packet size this endpoint is capable of sending/receiving.
   @ffi.Uint16()
-  int wMaxPacketSize;
+  external int wMaxPacketSize;
 
   /// Interval for polling endpoint for data transfers.
   @ffi.Uint8()
-  int bInterval;
+  external int bInterval;
 
   /// For audio devices only: the rate at which synchronization feedback
   /// is provided.
   @ffi.Uint8()
-  int bRefresh;
+  external int bRefresh;
 
   /// For audio devices only: the address if the synch endpoint
   @ffi.Uint8()
-  int bSynchAddress;
+  external int bSynchAddress;
 
   /// Extra descriptors. If libusb encounters unknown endpoint descriptors,
   /// it will store them here, should you wish to parse them.
-  ffi.Pointer<ffi.Uint8> extra;
+  external ffi.Pointer<ffi.Uint8> extra;
 
   /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
-  int extra_length;
+  external int extra_length;
 }
 
 /// \ingroup libusb_desc
@@ -2265,56 +1712,56 @@ class libusb_endpoint_descriptor extends ffi.Struct {
 class libusb_interface_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_INTERFACE LIBUSB_DT_INTERFACE
   /// in this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// Number of this interface
   @ffi.Uint8()
-  int bInterfaceNumber;
+  external int bInterfaceNumber;
 
   /// Value used to select this alternate setting for this interface
   @ffi.Uint8()
-  int bAlternateSetting;
+  external int bAlternateSetting;
 
   /// Number of endpoints used by this interface (excluding the control
   /// endpoint).
   @ffi.Uint8()
-  int bNumEndpoints;
+  external int bNumEndpoints;
 
   /// USB-IF class code for this interface. See \ref libusb_class_code.
   @ffi.Uint8()
-  int bInterfaceClass;
+  external int bInterfaceClass;
 
   /// USB-IF subclass code for this interface, qualified by the
   /// bInterfaceClass value
   @ffi.Uint8()
-  int bInterfaceSubClass;
+  external int bInterfaceSubClass;
 
   /// USB-IF protocol code for this interface, qualified by the
   /// bInterfaceClass and bInterfaceSubClass values
   @ffi.Uint8()
-  int bInterfaceProtocol;
+  external int bInterfaceProtocol;
 
   /// Index of string descriptor describing this interface
   @ffi.Uint8()
-  int iInterface;
+  external int iInterface;
 
   /// Array of endpoint descriptors. This length of this array is determined
   /// by the bNumEndpoints field.
-  ffi.Pointer<libusb_endpoint_descriptor> endpoint;
+  external ffi.Pointer<libusb_endpoint_descriptor> endpoint;
 
   /// Extra descriptors. If libusb encounters unknown interface descriptors,
   /// it will store them here, should you wish to parse them.
-  ffi.Pointer<ffi.Uint8> extra;
+  external ffi.Pointer<ffi.Uint8> extra;
 
   /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
-  int extra_length;
+  external int extra_length;
 }
 
 /// \ingroup libusb_desc
@@ -2322,12 +1769,12 @@ class libusb_interface_descriptor extends ffi.Struct {
 class libusb_interface extends ffi.Struct {
   /// Array of interface descriptors. The length of this array is determined
   /// by the num_altsetting field.
-  ffi.Pointer<libusb_interface_descriptor> altsetting;
+  external ffi.Pointer<libusb_interface_descriptor> altsetting;
 
   /// The number of alternate settings that belong to this interface.
   /// Must be non-negative.
   @ffi.Int32()
-  int num_altsetting;
+  external int num_altsetting;
 }
 
 /// \ingroup libusb_desc
@@ -2337,52 +1784,52 @@ class libusb_interface extends ffi.Struct {
 class libusb_config_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_CONFIG LIBUSB_DT_CONFIG
   /// in this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// Total length of data returned for this configuration
   @ffi.Uint16()
-  int wTotalLength;
+  external int wTotalLength;
 
   /// Number of interfaces supported by this configuration
   @ffi.Uint8()
-  int bNumInterfaces;
+  external int bNumInterfaces;
 
   /// Identifier value for this configuration
   @ffi.Uint8()
-  int bConfigurationValue;
+  external int bConfigurationValue;
 
   /// Index of string descriptor describing this configuration
   @ffi.Uint8()
-  int iConfiguration;
+  external int iConfiguration;
 
   /// Configuration characteristics
   @ffi.Uint8()
-  int bmAttributes;
+  external int bmAttributes;
 
   /// Maximum power consumption of the USB device from this bus in this
   /// configuration when the device is fully operation. Expressed in units
   /// of 2 mA when the device is operating in high-speed mode and in units
   /// of 8 mA when the device is operating in super-speed mode.
   @ffi.Uint8()
-  int MaxPower;
+  external int MaxPower;
 
   /// Array of interfaces supported by this configuration. The length of
   /// this array is determined by the bNumInterfaces field.
-  ffi.Pointer<libusb_interface> interface_1;
+  external ffi.Pointer<libusb_interface> interface_1;
 
   /// Extra descriptors. If libusb encounters unknown configuration
   /// descriptors, it will store them here, should you wish to parse them.
-  ffi.Pointer<ffi.Uint8> extra;
+  external ffi.Pointer<ffi.Uint8> extra;
 
   /// Length of the extra descriptors, in bytes. Must be non-negative.
   @ffi.Int32()
-  int extra_length;
+  external int extra_length;
 }
 
 /// \ingroup libusb_desc
@@ -2393,43 +1840,43 @@ class libusb_config_descriptor extends ffi.Struct {
 class libusb_ss_endpoint_companion_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_SS_ENDPOINT_COMPANION in
   /// this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// The maximum number of packets the endpoint can send or
   /// receive as part of a burst.
   @ffi.Uint8()
-  int bMaxBurst;
+  external int bMaxBurst;
 
   /// In bulk EP:	bits 4:0 represents the	maximum	number of
   /// streams the	EP supports. In	isochronous EP:	bits 1:0
   /// represents the Mult	- a zero based value that determines
   /// the	maximum	number of packets within a service interval
   @ffi.Uint8()
-  int bmAttributes;
+  external int bmAttributes;
 
   /// The	total number of bytes this EP will transfer every
   /// service interval. valid only for periodic EPs.
   @ffi.Uint16()
-  int wBytesPerInterval;
+  external int wBytesPerInterval;
 }
 
 /// \ingroup libusb_desc
 /// A generic representation of a BOS Device Capability descriptor. It is
 /// advised to check bDevCapabilityType and call the matching
 /// libusb_get_*_descriptor function to get a structure fully matching the type.
-class libusb_bos_dev_capability_descriptor extends ffi.Struct {}
+class libusb_bos_dev_capability_descriptor extends ffi.Opaque {}
 
 /// \ingroup libusb_desc
 /// A structure representing the Binary Device Object Store (BOS) descriptor.
 /// This descriptor is documented in section 9.6.2 of the USB 3.0 specification.
 /// All multiple-byte fields are represented in host-endian format.
-class libusb_bos_descriptor extends ffi.Struct {}
+class libusb_bos_descriptor extends ffi.Opaque {}
 
 /// \ingroup libusb_desc
 /// A structure representing the USB 2.0 Extension descriptor
@@ -2438,26 +1885,26 @@ class libusb_bos_descriptor extends ffi.Struct {}
 class libusb_usb_2_0_extension_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_DEVICE_CAPABILITY
   /// LIBUSB_DT_DEVICE_CAPABILITY in this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// Capability type. Will have value
   /// \ref libusb_capability_type::LIBUSB_BT_USB_2_0_EXTENSION
   /// LIBUSB_BT_USB_2_0_EXTENSION in this context.
   @ffi.Uint8()
-  int bDevCapabilityType;
+  external int bDevCapabilityType;
 
   /// Bitmap encoding of supported device level features.
   /// A value of one in a bit location indicates a feature is
   /// supported; a value of zero indicates it is not supported.
   /// See \ref libusb_usb_2_0_extension_attributes.
   @ffi.Uint32()
-  int bmAttributes;
+  external int bmAttributes;
 }
 
 /// \ingroup libusb_desc
@@ -2467,53 +1914,53 @@ class libusb_usb_2_0_extension_descriptor extends ffi.Struct {
 class libusb_ss_usb_device_capability_descriptor extends ffi.Struct {
   /// Size of this descriptor (in bytes)
   @ffi.Uint8()
-  int bLength;
+  external int bLength;
 
   /// Descriptor type. Will have value
   /// \ref libusb_descriptor_type::LIBUSB_DT_DEVICE_CAPABILITY
   /// LIBUSB_DT_DEVICE_CAPABILITY in this context.
   @ffi.Uint8()
-  int bDescriptorType;
+  external int bDescriptorType;
 
   /// Capability type. Will have value
   /// \ref libusb_capability_type::LIBUSB_BT_SS_USB_DEVICE_CAPABILITY
   /// LIBUSB_BT_SS_USB_DEVICE_CAPABILITY in this context.
   @ffi.Uint8()
-  int bDevCapabilityType;
+  external int bDevCapabilityType;
 
   /// Bitmap encoding of supported device level features.
   /// A value of one in a bit location indicates a feature is
   /// supported; a value of zero indicates it is not supported.
   /// See \ref libusb_ss_usb_device_capability_attributes.
   @ffi.Uint8()
-  int bmAttributes;
+  external int bmAttributes;
 
   /// Bitmap encoding of the speed supported by this device when
   /// operating in SuperSpeed mode. See \ref libusb_supported_speed.
   @ffi.Uint16()
-  int wSpeedSupported;
+  external int wSpeedSupported;
 
   /// The lowest speed at which all the functionality supported
   /// by the device is available to the user. For example if the
   /// device supports all its functionality when connected at
   /// full speed and above then it sets this value to 1.
   @ffi.Uint8()
-  int bFunctionalitySupport;
+  external int bFunctionalitySupport;
 
   /// U1 Device Exit Latency.
   @ffi.Uint8()
-  int bU1DevExitLat;
+  external int bU1DevExitLat;
 
   /// U2 Device Exit Latency.
   @ffi.Uint16()
-  int bU2DevExitLat;
+  external int bU2DevExitLat;
 }
 
 /// \ingroup libusb_desc
 /// A structure representing the Container ID descriptor.
 /// This descriptor is documented in section 9.6.2.3 of the USB 3.0 specification.
 /// All multiple-byte fields, except UUIDs, are represented in host-endian format.
-class libusb_container_id_descriptor extends ffi.Struct {}
+class libusb_container_id_descriptor extends ffi.Opaque {}
 
 /// \ingroup libusb_asyncio
 /// Setup packet for control transfers.
@@ -2523,7 +1970,7 @@ class libusb_control_setup extends ffi.Struct {
   /// \ref libusb_request_type. Bit 7 determines data transfer direction, see
   /// \ref libusb_endpoint_direction.
   @ffi.Uint8()
-  int bmRequestType;
+  external int bmRequestType;
 
   /// Request. If the type bits of bmRequestType are equal to
   /// \ref libusb_request_type::LIBUSB_REQUEST_TYPE_STANDARD
@@ -2531,52 +1978,52 @@ class libusb_control_setup extends ffi.Struct {
   /// \ref libusb_standard_request. For other cases, use of this field is
   /// application-specific.
   @ffi.Uint8()
-  int bRequest;
+  external int bRequest;
 
   /// Value. Varies according to request
   @ffi.Uint16()
-  int wValue;
+  external int wValue;
 
   /// Index. Varies according to request, typically used to pass an index
   /// or offset
   @ffi.Uint16()
-  int wIndex;
+  external int wIndex;
 
   /// Number of bytes to transfer
   @ffi.Uint16()
-  int wLength;
+  external int wLength;
 }
 
-class libusb_context extends ffi.Struct {}
+class libusb_context extends ffi.Opaque {}
 
-class libusb_device extends ffi.Struct {}
+class libusb_device extends ffi.Opaque {}
 
-class libusb_device_handle extends ffi.Struct {}
+class libusb_device_handle extends ffi.Opaque {}
 
 /// \ingroup libusb_lib
 /// Structure providing the version of the libusb runtime
 class libusb_version extends ffi.Struct {
   /// Library major version.
   @ffi.Uint16()
-  int major;
+  external int major;
 
   /// Library minor version.
   @ffi.Uint16()
-  int minor;
+  external int minor;
 
   /// Library micro version.
   @ffi.Uint16()
-  int micro;
+  external int micro;
 
   /// Library nano version.
   @ffi.Uint16()
-  int nano;
+  external int nano;
 
   /// Library release candidate suffix string, e.g. "-rc4".
-  ffi.Pointer<ffi.Int8> rc;
+  external ffi.Pointer<ffi.Int8> rc;
 
   /// For ABI compatibility only.
-  ffi.Pointer<ffi.Int8> describe;
+  external ffi.Pointer<ffi.Int8> describe;
 }
 
 /// \ingroup libusb_dev
@@ -2777,15 +2224,15 @@ abstract class libusb_transfer_flags {
 class libusb_iso_packet_descriptor extends ffi.Struct {
   /// Length of data to request in this packet
   @ffi.Uint32()
-  int length;
+  external int length;
 
   /// Amount of data that was actually transferred
   @ffi.Uint32()
-  int actual_length;
+  external int actual_length;
 
   /// Status code for this packet
   @ffi.Int32()
-  int status;
+  external int status;
 }
 
 /// \ingroup libusb_asyncio
@@ -2793,7 +2240,7 @@ class libusb_iso_packet_descriptor extends ffi.Struct {
 /// then submits it in order to request a transfer. After the transfer has
 /// completed, the library populates the transfer with the results and passes
 /// it back to the user.
-class libusb_transfer extends ffi.Struct {}
+class libusb_transfer extends ffi.Opaque {}
 
 /// \ingroup libusb_misc
 /// Capabilities supported by an instance of libusb on the current running
@@ -2845,10 +2292,10 @@ abstract class libusb_log_cb_mode {
 
 class timeval32 extends ffi.Struct {
   @ffi.Int64()
-  int tv_sec;
+  external int tv_sec;
 
   @ffi.Int32()
-  int tv_usec;
+  external int tv_usec;
 }
 
 /// \ingroup libusb_poll
@@ -2856,14 +2303,14 @@ class timeval32 extends ffi.Struct {
 class libusb_pollfd extends ffi.Struct {
   /// Numeric file descriptor
   @ffi.Int32()
-  int fd;
+  external int fd;
 
   /// Event flags to poll for from <poll.h>. POLLIN indicates that you
   /// should monitor this file descriptor for becoming ready to read from,
   /// and POLLOUT indicates that you should monitor this file descriptor for
   /// nonblocking write readiness.
   @ffi.Int16()
-  int events;
+  external int events;
 }
 
 /// \ingroup libusb_hotplug
@@ -2975,14 +2422,6 @@ const int LIBUSB_CONTROL_SETUP_SIZE = 8;
 const int LIBUSB_ERROR_COUNT = 14;
 
 const int LIBUSB_HOTPLUG_MATCH_ANY = -1;
-
-typedef _c_libusb_cpu_to_le16 = ffi.Uint16 Function(
-  ffi.Uint16 x,
-);
-
-typedef _dart_libusb_cpu_to_le16 = int Function(
-  int x,
-);
 
 typedef _c_libusb_init = ffi.Int32 Function(
   ffi.Pointer<ffi.Pointer<libusb_context>> ctx,
@@ -3550,43 +2989,6 @@ typedef _dart_libusb_set_auto_detach_kernel_driver = int Function(
   int enable,
 );
 
-typedef _c_libusb_control_transfer_get_data = ffi.Pointer<ffi.Uint8> Function(
-  ffi.Pointer<libusb_transfer> transfer,
-);
-
-typedef _dart_libusb_control_transfer_get_data = ffi.Pointer<ffi.Uint8>
-    Function(
-  ffi.Pointer<libusb_transfer> transfer,
-);
-
-typedef _c_libusb_control_transfer_get_setup = ffi.Pointer<libusb_control_setup>
-    Function(
-  ffi.Pointer<libusb_transfer> transfer,
-);
-
-typedef _dart_libusb_control_transfer_get_setup
-    = ffi.Pointer<libusb_control_setup> Function(
-  ffi.Pointer<libusb_transfer> transfer,
-);
-
-typedef _c_libusb_fill_control_setup = ffi.Void Function(
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Uint8 bmRequestType,
-  ffi.Uint8 bRequest,
-  ffi.Uint16 wValue,
-  ffi.Uint16 wIndex,
-  ffi.Uint16 wLength,
-);
-
-typedef _dart_libusb_fill_control_setup = void Function(
-  ffi.Pointer<ffi.Uint8> buffer,
-  int bmRequestType,
-  int bRequest,
-  int wValue,
-  int wIndex,
-  int wLength,
-);
-
 typedef _c_libusb_alloc_transfer = ffi.Pointer<libusb_transfer> Function(
   ffi.Int32 iso_packets,
 );
@@ -3635,152 +3037,6 @@ typedef _c_libusb_transfer_get_stream_id = ffi.Uint32 Function(
 
 typedef _dart_libusb_transfer_get_stream_id = int Function(
   ffi.Pointer<libusb_transfer> transfer,
-);
-
-typedef libusb_transfer_cb_fn = ffi.Void Function(
-  ffi.Pointer<libusb_transfer>,
-);
-
-typedef _c_libusb_fill_control_transfer = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  ffi.Uint32 timeout,
-);
-
-typedef _dart_libusb_fill_control_transfer = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  int timeout,
-);
-
-typedef _c_libusb_fill_bulk_transfer = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Int32 length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  ffi.Uint32 timeout,
-);
-
-typedef _dart_libusb_fill_bulk_transfer = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  int length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  int timeout,
-);
-
-typedef _c_libusb_fill_bulk_stream_transfer = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 endpoint,
-  ffi.Uint32 stream_id,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Int32 length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  ffi.Uint32 timeout,
-);
-
-typedef _dart_libusb_fill_bulk_stream_transfer = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int endpoint,
-  int stream_id,
-  ffi.Pointer<ffi.Uint8> buffer,
-  int length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  int timeout,
-);
-
-typedef _c_libusb_fill_interrupt_transfer = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Int32 length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  ffi.Uint32 timeout,
-);
-
-typedef _dart_libusb_fill_interrupt_transfer = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  int length,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  int timeout,
-);
-
-typedef _c_libusb_fill_iso_transfer = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  ffi.Int32 length,
-  ffi.Int32 num_iso_packets,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  ffi.Uint32 timeout,
-);
-
-typedef _dart_libusb_fill_iso_transfer = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int endpoint,
-  ffi.Pointer<ffi.Uint8> buffer,
-  int length,
-  int num_iso_packets,
-  ffi.Pointer<ffi.NativeFunction<libusb_transfer_cb_fn>> callback,
-  ffi.Pointer<ffi.Void> user_data,
-  int timeout,
-);
-
-typedef _c_libusb_set_iso_packet_lengths = ffi.Void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Uint32 length,
-);
-
-typedef _dart_libusb_set_iso_packet_lengths = void Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  int length,
-);
-
-typedef _c_libusb_get_iso_packet_buffer = ffi.Pointer<ffi.Uint8> Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Uint32 packet,
-);
-
-typedef _dart_libusb_get_iso_packet_buffer = ffi.Pointer<ffi.Uint8> Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  int packet,
-);
-
-typedef _c_libusb_get_iso_packet_buffer_simple = ffi.Pointer<ffi.Uint8>
-    Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  ffi.Uint32 packet,
-);
-
-typedef _dart_libusb_get_iso_packet_buffer_simple = ffi.Pointer<ffi.Uint8>
-    Function(
-  ffi.Pointer<libusb_transfer> transfer,
-  int packet,
 );
 
 typedef _c_libusb_control_transfer = ffi.Int32 Function(
@@ -3839,38 +3095,6 @@ typedef _dart_libusb_interrupt_transfer = int Function(
   int length,
   ffi.Pointer<ffi.Int32> actual_length,
   int timeout,
-);
-
-typedef _c_libusb_get_descriptor = ffi.Int32 Function(
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 desc_type,
-  ffi.Uint8 desc_index,
-  ffi.Pointer<ffi.Uint8> data,
-  ffi.Int32 length,
-);
-
-typedef _dart_libusb_get_descriptor = int Function(
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int desc_type,
-  int desc_index,
-  ffi.Pointer<ffi.Uint8> data,
-  int length,
-);
-
-typedef _c_libusb_get_string_descriptor = ffi.Int32 Function(
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  ffi.Uint8 desc_index,
-  ffi.Uint16 langid,
-  ffi.Pointer<ffi.Uint8> data,
-  ffi.Int32 length,
-);
-
-typedef _dart_libusb_get_string_descriptor = int Function(
-  ffi.Pointer<libusb_device_handle> dev_handle,
-  int desc_index,
-  int langid,
-  ffi.Pointer<ffi.Uint8> data,
-  int length,
 );
 
 typedef _c_libusb_get_string_descriptor_ascii = ffi.Int32 Function(
