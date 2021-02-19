@@ -28,27 +28,23 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 ### Build libusb_xxx.dart
 
-- Windows:
+- Windows/Linux:
 
 ```
 pub run ffigen
-move lib/libusb.dart lib/libusb_windows.dart
+move lib/libusb.dart lib/libusb64.dart
 ```
+
+Refactor `timeval` to `timeval64`
 
 - macOS:
 
 ```
 pub run ffigen
-mv lib/libusb.dart lib/libusb_macos.dart
+mv lib/libusb.dart lib/libusb32.dart
 ```
 
-- Linux:
-
-```sh
-pub run ffigen:setup -I/usr/lib/llvm-10/include -L/usr/lib/llvm-10/lib/
-pub run ffigen
-mv lib/libusb.dart lib/libusb_linux.dart
-```
+Refactor `timeval` to `timeval32`
 
 ## Contribute
 
