@@ -48,6 +48,9 @@ void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
 
   for (var i = 0; deviceList[i] != nullptr; i++) {
     var dev = deviceList[i];
+    // var bus = libusb.libusb_get_bus_number(dev);
+    // print('--bus-- $bus');
+
     var result = libusb.libusb_get_device_descriptor(dev, descPtr);
     if (result < 0) continue;
 
@@ -55,8 +58,9 @@ void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
     var idVendor = desc.idVendor.toRadixString(16).padLeft(4, '0');
     var idProduct = desc.idProduct.toRadixString(16).padLeft(4, '0');
     var bus = libusb.libusb_get_bus_number(dev).toRadixString(16);
+    var port = libusb.libusb_get_port_number(dev);
     var addr = libusb.libusb_get_device_address(dev).toRadixString(16);
-    print('$idVendor:$idProduct (bus $bus, device $addr)');
+    print('$idVendor:$idProduct (bus $bus, port $port, device $addr)');
 
     var portCount = libusb.libusb_get_port_numbers(dev, path, 8);
     if (portCount > 0) {
