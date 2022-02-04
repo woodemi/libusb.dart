@@ -1,3 +1,7 @@
+## 0.3.23+1
+
+- Update `platforms` according to https://dart.dev/tools/pub/pubspec#platforms
+
 ## 0.3.23-nullsafety.0
 
 - Migerate to `Null safety`

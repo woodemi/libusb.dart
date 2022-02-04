@@ -1,10 +1,15 @@
 name: libusb
 description: Dart wrapper via `dart:ffi` for https://github.com/libusb/libusb
-version: 0.3.23-nullsafety.0
+version: 0.3.23+1
 homepage: https://github.com/woodemi/libusb.dart
 
 environment:
   sdk: '>=2.12.0-259.9.beta <3.0.0' # ffi: ^1.0.0 required
+
+platforms:
+  linux:
+  macos:
+  windows:
 
 dependencies:
   ffi: ^1.0.0
