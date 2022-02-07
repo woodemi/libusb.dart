@@ -2159,7 +2159,30 @@ class libusb_ss_usb_device_capability_descriptor extends ffi.Struct {
 /// A structure representing the Container ID descriptor.
 /// This descriptor is documented in section 9.6.2.3 of the USB 3.0 specification.
 /// All multiple-byte fields, except UUIDs, are represented in host-endian format.
-class libusb_container_id_descriptor extends ffi.Opaque {}
+class libusb_container_id_descriptor extends ffi.Struct {
+  /// Size of this descriptor (in bytes)
+  @ffi.Uint8()
+  external int bLength;
+
+  /// Descriptor type. Will have value
+  /// \ref libusb_descriptor_type::LIBUSB_DT_DEVICE_CAPABILITY
+  /// LIBUSB_DT_DEVICE_CAPABILITY in this context.
+  @ffi.Uint8()
+  external int bDescriptorType;
+
+  /// Capability type. Will have value
+  /// \ref libusb_capability_type::LIBUSB_BT_CONTAINER_ID
+  /// LIBUSB_BT_CONTAINER_ID in this context.
+  @ffi.Uint8()
+  external int bDevCapabilityType;
+
+  /// Reserved field
+  @ffi.Uint8()
+  external int bReserved;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<ffi.Uint8> ContainerID;
+}
 
 /// \ingroup libusb_asyncio
 /// Setup packet for control transfers.
