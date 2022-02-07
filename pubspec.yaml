@@ -23,9 +23,22 @@ dev_dependencies:
 ffigen:
   name: Libusb
   description: Bindings to `libusb.h`.
-  output: 'lib/libusb.dart'
+  output: 'lib/src/libusb.ffigen.dart'
   headers:
     entry-points:
       - 'libusb-1.0/libusb.h'
     include-directives: # include only these header files and necessary structs from other header files
       - '**libusb.h'
+  library-imports:
+    pkg_libusb: 'package:libusb/src/libusb_base.dart'
+  type-map:
+    'typedefs':
+      'ssize_t':
+        'lib': 'pkg_libusb'
+        'c-type': 'Ssize_t'
+        'dart-type': 'int'
+    'structs':
+      'timeval':
+        'lib': 'pkg_libusb'
+        'c-type': 'Timeval'
+        'dart-type': 'Timeval'
