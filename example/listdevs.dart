@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart' show calloc;
 import 'package:convert/convert.dart';
-import 'package:libusb/libusb64.dart'; // if (Platform.isMacOS) 'package:libusb/libusb32.dart
+import 'package:libusb/libusb_macos.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
