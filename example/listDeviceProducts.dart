@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:ffi/ffi.dart' show calloc;
+import 'package:ffi/ffi.dart' show UnsignedChar, calloc;
 import 'package:libusb/libusb_linux.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
@@ -56,7 +56,7 @@ class QuickUsb {
     var descPtr = calloc<libusb_device_descriptor>();
     var devHandlePtr = calloc<Pointer<libusb_device_handle>>();
     final strDescLength = 42;
-    var strDescPtr = calloc<Uint8>(strDescLength);
+    var strDescPtr = calloc<UnsignedChar>(strDescLength);
 
     for (var i = 0; deviceList[i] != nullptr; i++) {
       var deviceProduct = _getDeviceProduct(
@@ -73,7 +73,7 @@ class QuickUsb {
     Pointer<libusb_device> dev,
     Pointer<libusb_device_descriptor> descPtr,
     Pointer<Pointer<libusb_device_handle>> devHandlePtr,
-    Pointer<Uint8> strDescPtr,
+    Pointer<UnsignedChar> strDescPtr,
     int strDescLength,
   ) {
     var devDesc = _libusb.libusb_get_device_descriptor(dev, descPtr);
@@ -112,7 +112,7 @@ class QuickUsb {
         print('$idDevice prodDesc error: ${_libusb.describeError(prodDesc)}');
         return MapEntry(idDevice, '');
       }
-      return MapEntry(idDevice, utf8.decode(strDescPtr.asTypedList(prodDesc)));
+      return MapEntry(idDevice, utf8.decode(strDescPtr.cast<Uint8>().asTypedList(prodDesc)));
     } finally {
       _libusb.libusb_close(devHandle);
     }
@@ -126,9 +126,10 @@ final int _maxSize = sizeOf<IntPtr>() == 8 ? _kMaxSmi64 : _kMaxSmi32;
 extension LibusbExtension on Libusb {
   String describeError(int error) {
     var array = _libusb.libusb_error_name(error);
-    var nativeString = array.asTypedList(_maxSize);
+    // FIXME array is Pointer<Char>, not Pointer<Uint8>
+    var nativeString = array.cast<Uint8>().asTypedList(_maxSize);
     var strlen = nativeString.indexWhere((char) => char == 0);
-    return utf8.decode(array.asTypedList(strlen));
+    return utf8.decode(array.cast<Uint8>().asTypedList(strlen));
   }
 }
 
@@ -138,7 +139,7 @@ extension LibusbInline on Libusb {
     Pointer<libusb_device_handle> dev_handle,
     int desc_index,
     int langid,
-    Pointer<Uint8> data,
+    Pointer<UnsignedChar> data,
     int length,
   ) {
     return libusb_control_transfer(
