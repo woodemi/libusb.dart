@@ -1,3 +1,7 @@
+## 0.3.23+2
+
+- Update generated code with ffigen 3.0.0
+
 ## 0.3.23+1
 
 - Update `platforms` according to https://dart.dev/tools/pub/pubspec#platforms
