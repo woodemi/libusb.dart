@@ -5,7 +5,7 @@ class Timeval extends Struct {
   @pkg_ffi.Long()
   external int tv_sec;
 
-  @Susecond_t()
+  @Susecond()
   external int tv_usec;
 }
 
@@ -23,8 +23,8 @@ class Timeval extends Struct {
   Abi.windowsIA32: Int32(),
   Abi.windowsX64: Int32(),
 })
-class Susecond_t extends AbiSpecificInteger {
-  const Susecond_t();
+class Susecond extends AbiSpecificInteger {
+  const Susecond();
 }
 
 /// [pkg_ffi.Long] on Linux
@@ -41,6 +41,6 @@ class Susecond_t extends AbiSpecificInteger {
   Abi.windowsIA32: Int64(),
   Abi.windowsX64: Int64(),
 })
-class Ssize_t extends AbiSpecificInteger {
-  const Ssize_t();
+class Ssize extends AbiSpecificInteger {
+  const Ssize();
 }

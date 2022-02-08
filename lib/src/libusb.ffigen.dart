@@ -163,7 +163,7 @@ class Libusb {
 
   late final _libusb_get_device_listPtr = _lookup<
           ffi.NativeFunction<
-              pkg_libusb.Ssize_t Function(ffi.Pointer<libusb_context>,
+              pkg_libusb.Ssize Function(ffi.Pointer<libusb_context>,
                   ffi.Pointer<ffi.Pointer<ffi.Pointer<libusb_device>>>)>>(
       'libusb_get_device_list');
   late final _libusb_get_device_list = _libusb_get_device_listPtr.asFunction<

@@ -39,7 +39,7 @@ ffigen:
         'dart-type': 'int'
       'ssize_t':
         'lib': 'pkg_libusb'
-        'c-type': 'Ssize_t'
+        'c-type': 'Ssize'
         'dart-type': 'int'
     'structs':
       'timeval':
