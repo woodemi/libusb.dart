@@ -33,6 +33,10 @@ ffigen:
     pkg_libusb: 'package:libusb/src/libusb_base.dart'
   type-map:
     'typedefs':
+      'size_t':
+        'lib': 'pkg_ffi'
+        'c-type': 'Size'
+        'dart-type': 'int'
       'ssize_t':
         'lib': 'pkg_libusb'
         'c-type': 'Ssize_t'
