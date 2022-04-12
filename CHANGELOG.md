@@ -1,3 +1,7 @@
+## 0.4.23-dev.1+1
+
+- Move example/listdevs.dart to example/main.dart
+
 ## 0.4.23-dev.0
 
 - Refactor with ffigen 5.0.0+
