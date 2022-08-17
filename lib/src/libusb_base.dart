@@ -1,5 +1,5 @@
 import 'dart:ffi';
-import 'package:ffi/ffi.dart' as pkg_ffi;
+import 'dart:ffi' as pkg_ffi;
 
 class Timeval extends Struct {
   @pkg_ffi.Long()
