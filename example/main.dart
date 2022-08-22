@@ -1,21 +1,16 @@
 import 'dart:ffi';
 import 'dart:io';
-
 import 'package:ffi/ffi.dart' show calloc;
-import 'package:convert/convert.dart';
 import 'package:libusb/libusb.dart';
 
 final DynamicLibrary Function() loadLibrary = () {
   if (Platform.isWindows) {
-    return DynamicLibrary.open(
-        '${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
+    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dll');
   }
   if (Platform.isMacOS) {
-    return DynamicLibrary.open(
-        '${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
+    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.dylib');
   } else if (Platform.isLinux) {
-    return DynamicLibrary.open(
-        '${Directory.current.path}/libusb-1.0/libusb-1.0.so');
+    return DynamicLibrary.open('${Directory.current.path}/libusb-1.0/libusb-1.0.so');
   }
   throw 'libusb dynamic library not found';
 };
@@ -64,8 +59,8 @@ void printDevs(Pointer<Pointer<libusb_device>> deviceList) {
 
     var portCount = libusb.libusb_get_port_numbers(dev, path, 8);
     if (portCount > 0) {
-      var hexList = path.asTypedList(portCount).map((e) => hex.encode([e]));
-      print(' path: ${hexList.join('.')}');
+      var hexList = path.asTypedList(portCount).map((e) => e.toRadixString(16).padLeft(2, '0')).join(':');
+      print(' path: $hexList');
     }
   }
 

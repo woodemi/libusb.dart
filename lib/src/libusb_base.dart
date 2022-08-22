@@ -1,8 +1,7 @@
 import 'dart:ffi';
-import 'dart:ffi' as pkg_ffi;
 
 class Timeval extends Struct {
-  @pkg_ffi.Long()
+  @Long()
   external int tv_sec;
 
   @Susecond()
